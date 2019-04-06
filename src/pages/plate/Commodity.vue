@@ -1,0 +1,257 @@
+<template>
+	<div class="commodity">
+    <div class="commodity-content">
+    	<div class="wrapper commodity-wrapper">
+    		<div class="commodity-left">
+					<ul>
+						<li v-for='imgnav in commoditynav'>
+							<img :src="imgnav.src" alt="">
+							<img :src="imgnav.src" alt="">
+						</li>
+					</ul>
+				</div>
+    		<div class="commodity-right">
+    			<div class="commodity-name">鲜花花名：{{commodity.name}}</div>
+    			<div class="commodity-msg">
+    				<div class="commodity-id">
+    					<span class="commoditymsg-left">鲜花id：</span>
+    					<span class="commoditymsg-right">{{commodity.id}}</span>
+    				</div>
+    				<div class="commodity-material">
+    					<span class="commoditymsg-left">鲜花材料：</span>
+    					<span class="commoditymsg-right">{{commodity.material}}</span>
+    				</div>
+    				<div class="commodity-language">
+    					<span class="commoditymsg-left">鲜花花语：</span>
+    					<span class="commoditymsg-right">{{commodity.language}}</span>
+    				</div>
+    				<div class="commodity-packing">
+    					<span class="commoditymsg-left">鲜花包装：</span>
+    					<span class="commoditymsg-right">{{commodity.packing}}</span>
+    				</div>
+    				<div class="commodity-language">
+    					<span class="commoditymsg-left">配送范围：</span>
+    					<span class="commoditymsg-right">全国(市区免配送费~)</span>
+    				</div>
+    			</div>
+    			<div class="commodity-price">
+    				<div class="commodity-price1">市场价：{{commodity.price1}}</div>
+    				<div class="commodity-price2">
+							<span>现价：</span>
+							<span>{{commodity.price2}}</span>
+    				</div>
+    				<div class="commodity-buy">
+    					<div class="number">
+    						<span>数量：</span>
+    						<el-button icon='el-icon-minus' @click='minus'></el-button>
+    						<el-input v-model='number' ref='number' @blur='BlurText($event)'></el-input>
+    						<el-button icon='el-icon-plus' @click='plus'></el-button>
+    					</div>
+    					<router-link to='/plate/pay' class="buy">立即购买</router-link>
+    					<a class="addshoppingcart"><i class="fa fa-shopping-cart"></i>加入购物车</a>
+    				</div>
+    			</div>
+    		</div>
+    	</div>
+    </div>
+	</div>
+</template>
+
+<script>
+	export default {
+		data(){
+			return {
+				commodity:{
+					id:'300',
+					name:'一心一意',
+					material:'红玫瑰11枝，粉色(或者紫色）勿忘我0.3扎，栀子叶8枝',
+					language:'一心一意我只属于你、一生一世只爱你一个、两个人永远相爱，永不分离。纵然途中万般风景，我的眼里只有你！很爱很爱你，想把你捧在手心，放在心里',
+					packing:'内层白色雾面纸，外层牛皮纸,咖啡色花结',
+					price1:'￥189',
+					price2:'￥138'
+				},
+				commoditynav:[{
+					src:require('@/assets/love-1/9010011.jpg')
+				},{
+					src:require('@/assets/love-1/201709011117442888.jpg')
+				},{
+					src:require('@/assets/love-1/201709151725463208.jpg')
+				}],
+				number:'1'
+			}
+		},
+		watch:{
+			number:function(){
+				// console.log(this.number)
+				if(this.number>=99){this.number=99}
+				if(this.number<1){this.number=1}
+			}
+		},
+		methods:{
+			minus(){
+				if(this.number>1&&this.number<=99){
+					this.number--;
+				}
+			},
+			plus(){
+				if(this.number>=1&&this.number<99){
+					this.number++;
+				}
+			},
+			BlurText(e){
+				let boolean=new RegExp('^[1-9][0-9]*$').test(e.target.value);
+				if(!boolean){
+					this.$message.warning('请输入正整数');
+					e.target.value='1';
+					this.$refs.number.focus();
+				}
+			}
+		}
+	}
+</script>
+
+<style>
+	.commodity-content {
+		padding-top: 35px;
+	}
+	.commodity-content .commodity-wrapper {
+		height: 617px;
+		border: 1px solid grey;
+	}
+	.commodity-wrapper > * {
+		float: left;
+		height: 100%;
+	}
+	.commodity-wrapper > .commodity-left {
+		width: 510px;
+		padding: 20px 40px;
+	}
+	.commodity-left ul > * {
+		float: left;
+		position: relative;
+	}
+	.commodity-left ul > * > img:last-child {
+		width: 430px;
+		height: 470px;
+		position: absolute;
+		top: 105px;
+	}
+	.commodity-left ul > li:nth-child(2) > img:last-child {
+		left: -107px;
+	}
+	.commodity-left ul > li:nth-child(3) > img:last-child {
+		left: -214px;
+	}
+	.commodity-left ul > * > img:first-child {
+		width: 75px;
+		height: 75px;
+		position: relative;
+		/*top: 475px;*/
+		border: 1px solid rgba(247,99,114,0.3);
+		padding: 5px;
+		margin-right: 20px;
+	}
+	.commodity-left ul > * > img:first-child:hover {
+		border: 1px solid #f76372;
+	}
+	.commodity-left ul > * > img:first-child:hover + img {
+		z-index: 20;
+	}
+	.commodity-wrapper > .commodity-right {
+		width: 688px;
+		padding: 25px;
+	}
+	.commodity-right .commodity-name {
+		font-size: 25px;
+		padding-bottom: 10px;
+		border-bottom: 1px solid #ccc;
+	}
+	.commodity-right .commodity-msg {
+		margin-top: 20px;
+		font-size: 13px;
+		padding-bottom: 20px;
+		border-bottom: 1px solid #ccc;
+	}
+	.commodity-msg > *,
+	.commodity-price > * {
+		margin-bottom: 15px;
+	}
+	.commodity-msg > * > span.commoditymsg-left {
+		float: left;
+	}
+	.commodity-msg > * > span.commoditymsg-right {
+		display: block;
+		margin-left: 80px;
+	}
+	.commodity-right .commodity-price {
+		margin-top: 20px;
+	}
+	.commodity-price .commodity-price1 {
+		font-size: 18px;
+		text-decoration: line-through;
+	}
+	.commodity-price .commodity-price2 {
+		font-size: 25px;
+	}
+	.commodity-price2 span:last-child {
+		color: #f76372;
+		font-weight: bold;
+	}
+	.commodity-price .commodity-buy .number > * {
+		float: left;
+	}
+	.number > span {
+		display: inline-block;
+		line-height: 40px;
+	}
+	.number > .el-input {
+		width: 100px;
+	}
+	.number > .el-input input {
+		text-align: center;
+	}
+	.commodity-price .commodity-buy {
+		padding-top: 20px;
+	}
+	.commodity-buy .number{
+		margin-bottom: 30px;
+	}
+	.commodity-buy .buy,
+	.commodity-buy > a {
+		display: inline-block;
+		width: 160px;
+		height: 50px;
+		font-size: 18px;
+		text-align: center;
+		line-height: 50px;
+		cursor: pointer;
+		border-radius: 3px;
+		border: 1px solid #f76372;
+		border-radius: 3px;
+	}
+	.commodity-buy .buy {
+		background-color: #f76372;
+		color: #fff;
+		margin-right: 20px;
+	}
+	.buy:hover {
+		background-color: rgba(247,99,114,0.9);
+	}
+	.commodity-buy > a.addshoppingcart {
+		background-color: #f5f3ef; 
+		cursor: pointer;
+	}
+	.commodity-buy > a.addshoppingcart:hover {
+		background-color: #fff;
+	}
+	.commodity-buy > a.addshoppingcart .fa-shopping-cart {
+		margin-right: 10px;
+	}
+	.commodity-wrapper::after,
+	.commodity-msg > *::after,
+	.commodity-buy .number::after {
+		content: '';
+    display: block;
+    clear: both;
+	}
+</style>
