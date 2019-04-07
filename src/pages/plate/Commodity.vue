@@ -225,7 +225,7 @@
 		text-align: center;
 		line-height: 50px;
 		cursor: pointer;
-		border-radius: 3px;
+		border-radius: 4px;
 		border: 1px solid #f76372;
 		border-radius: 3px;
 	}
