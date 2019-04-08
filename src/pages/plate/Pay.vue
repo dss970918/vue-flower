@@ -49,6 +49,7 @@
     	</div>
     </div>
 		
+
 		<!-- 修改信息的模态框 -->
     <el-dialog title="收货地址" :visible.sync="receive.visible">
 		  <el-form :model="receive.form" label-position='left'>
@@ -64,9 +65,10 @@
 		  </el-form>
 		  <div slot="footer" class="dialog-footer">
 		    <el-button @click="closePDialog">取 消</el-button>
-		    <el-button type="primary" @click="saveOrUpdateReceive">确 定</el-button>
+		    <el-button type="primary" @click="saveOrUpdateReceive">保 存</el-button>
 		  </div>
 		</el-dialog>
+		
 		
 		<!-- 去付款的模态框 -->
 		<el-dialog title="选择支付方式" :visible.sync="pay.visible" class='topay'>
@@ -88,12 +90,17 @@
 		  </div>
 		  <el-dialog
 	      width="30%"
-	      title="内层 Dialog"
+	      title="输入支付密码"
 	      :visible.sync="paynow.visible"
 	      append-to-body>
+	      <el-input v-model='password' placeholder='请输入密码' show-password></el-input>
+	      <div slot="footer" class="dialog-footer">
+			    <el-button @click="closePaypasswdDialog">取 消</el-button>
+			    <el-button type="primary" @click="payed">确 定</el-button>
+			  </div>
 	    </el-dialog>
 		  <div slot="footer" class="dialog-footer">
-		    <el-button @click="closePDialog">取 消</el-button>
+		    <el-button @click="closePayDialog">取 消</el-button>
 		    <el-button type="primary" @click="topaynow">确 定</el-button>
 		  </div>
 		</el-dialog>
@@ -128,7 +135,11 @@
 				paynow:{
 					visible:false
 				},
-				radio:''
+				radio:'',
+				password:'',
+				rules:{
+					
+				}
 			}
 		},
 		computed:{
@@ -150,21 +161,46 @@
 				this.receive.visible=true;
 			},
 			closePDialog(){
-				// 取消->关闭模态框
+				// 取消->关闭修改收件人信息的模态框
 				this.receive.visible=false;
-				this.pay.visible=false;
 			},
 			saveOrUpdateReceive(){
-				// 保存新收货信息
+				// 保存->保存新收货信息
 
 				this.receive.visible=false;
 			},
 			gopay(){
-				// 去付款的模态框
+				// 点击去付款->模态框
 				this.pay.visible=true;
 			},
+			closePayDialog(){
+				// 关闭选择支付方式模态框
+				this.pay.visible=false;
+				this.radio='';// 清除支付单选项
+			},
 			topaynow(){
-				this.paynow.visible=true;
+				// 去付款->确定
+				if(this.radio==''){
+					this.$message.warning('请选择支付方式')
+				}else{
+
+					this.paynow.visible=true;
+				}
+			},
+			closePaypasswdDialog(){
+				// 取消->关闭输入支付密码的模态框
+				this.paynow.visible=false;
+				this.password=''
+			},
+			payed(){
+				// 输入支付密码->确定
+				this.$message({
+					message:'支付成功！',
+					type:'success'
+				});
+				this.paynow.visible=false;
+				this.pay.visible=false;
+				this.$router.push('/');
 			}
 		}
 	}

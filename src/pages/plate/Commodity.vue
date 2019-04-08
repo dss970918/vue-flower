@@ -48,7 +48,7 @@
     						<el-button icon='el-icon-plus' @click='plus'></el-button>
     					</div>
     					<router-link to='/plate/pay' class="buy">立即购买</router-link>
-    					<a class="addshoppingcart"><i class="fa fa-shopping-cart"></i>加入购物车</a>
+    					<a class="addshoppingcart" @click='addshoppingcart'><i class="fa fa-shopping-cart"></i>加入购物车</a>
     				</div>
     			</div>
     		</div>
@@ -99,12 +99,17 @@
 				}
 			},
 			BlurText(e){
+				// 数量限制为正整数
 				let boolean=new RegExp('^[1-9][0-9]*$').test(e.target.value);
 				if(!boolean){
 					this.$message.warning('请输入正整数');
 					e.target.value='1';
 					this.$refs.number.focus();
 				}
+			},
+			addshoppingcart(){
+				// 加入购物车
+				this.$message.success('加入购物车成功')
 			}
 		}
 	}
