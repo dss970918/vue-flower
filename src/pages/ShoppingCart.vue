@@ -2,26 +2,6 @@
 	<div class="shoppingcart">
 		<div class="wrapper cart-wrapper">
   		<div class="cart-commodity">
-				<div class="cart-title">
-					<span>商品信息</span>
-					<span>单价</span>
-					<span>数量</span>
-					<span>小计</span>
-					<span>实付</span>
-				</div>
-				<div class="cart-commodity-msg">
-					<ul>
-						<li v-for='commodity in commodity'>
-							<div class="commodity-img"><img :src="commodity.src"></div>
-							<div class="commodity-title"><span>{{commodity.name}}</span></div>
-							<div class="commodity-price">￥<span>{{commodity.price2}}</span></div>
-							<div class="commodity-number"><span>{{commodity.number}}</span></div>
-							<div class="commodity-xiaoji">￥<span >{{commodity.number*commodity.price2}}</span></div>
-							<div class="commodity-shifu"><span>￥{{commodity.number*commodity.price2}}</span></div>
-						</li>
-					</ul>
-				</div>
-
 				<el-table
 			    ref="multipleTable"
 			    :data="commodity"
@@ -34,23 +14,31 @@
 			    </el-table-column>
 			    <el-table-column
 			      label="商品信息"
-			      width="344">
+			      width="343">
 			      <template slot-scope='{row}'>
-			      	<img :src="row.src" alt="">
+			      	<img :src="row.src">
 			      	<span>{{row.name}}</span>
 			      </template>
 			    </el-table-column>
 			    <el-table-column
 			      label="单价"
-			      prop="price2"
 			      width="200"
 			      align='center'>
+			      <template slot-scope='{row}'>
+			      	<span>￥{{row.price2}}</span>
+			      </template>
 			    </el-table-column>
 			    <el-table-column
 			      label="数量"
-			      prop='number'
 			      width="200"
 			      align='center'>
+			      <template slot-scope='{row}'>
+			      	<div>
+								<el-button icon='el-icon-minus' @click='minus(row)'></el-button>
+			      		{{row.number}}
+    						<el-button icon='el-icon-plus' @click='plus(row)'></el-button>
+			      	</div>
+			      </template>
 			    </el-table-column>
 			    <el-table-column
 			      label="小计"
@@ -65,15 +53,21 @@
 			      width='200'
 			      align='center'>
 			      <template slot-scope='{row}'>
-			      	<span>删除</span>
+			      	<span @click='deletecommodity(row)'>删除</span>
+			      	<!-- 此处应为row.id -->
 			      </template>
 			    </el-table-column>
 			  </el-table>
-
-
+				{{multipleSelection}}
 				<div class="cart-pay">
-					<div class="cart-total"><span>总计：</span><span>￥{{total_price}}</span></div>
-					<div class="cart-gopay"><el-button @click='gopay'>下 单</el-button></div>
+					<div class="cart-total">
+						<span>共{{commodity.length}}件商品，已选择{{multipleSelection.length}}件</span>
+						<span>总计：</span>
+						<span>￥{{total_price}}</span>
+					</div>
+					<div class="cart-gopay">
+						<el-button @click='gopay'>下 单</el-button>
+					</div>
 				</div>
   		</div>
     </div>
@@ -101,10 +95,10 @@
 					src:require('@/assets/love-1/9010011.jpg'),
 					number:'2'
 				},{
-					id:'300',
-					name:'一心二意',
-					price2:'138',
-					src:require('@/assets/love-1/9010011.jpg'),
+					id:'307',
+					name:'致青春',
+					price2:'229',
+					src:require('@/assets/love-8.jpg'),
 					number:'1'
 				}],
 				// 去支付模态框
@@ -124,12 +118,13 @@
 			total_price(){
 				// 计算总价
 				let total=0;
-				this.commodity.forEach(item=>{
+				this.multipleSelection.forEach(item=>{
 					total+=Number(item.price2)*Number(item.number)
 				})
 				return total;
 			},
 			commodity_price(){
+				// 计算单个商品价格
 				let price=0;
 				this.commodity.forEach(item=>{
 					price=Number(item.price2)*Number(item.number)
@@ -143,10 +138,35 @@
 		methods:{
 			handleSelectionChange(val){
 				this.multipleSelection=val;
-				console.log(val)
+			},
+			minus(row){
+				if(row.number>1&&row.number<=99){
+					row.number--;
+				}
+			},
+			plus(row){
+				if(row.number>=1&&row.number<99){
+					row.number++;
+				}
 			},
 			gopay(){
 				this.$router.push('/plate/pay')
+			},
+			deletecommodity(row){
+				this.$confirm('确认删除商品？', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+        	//这只是暂时的
+        	this.multipleSelection.splice(this.multipleSelection.indexOf(row),1);
+      		this.commodity.splice(this.commodity.indexOf(row),1);
+      		// 此处应为axios.get
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          });
+        })
 			}
 		}
 	}
@@ -158,57 +178,13 @@
 		border: 1px solid #e8e8e8;
 		padding-bottom: 30px;
 	}
-	.cart-commodity > .cart-title {
-		background-color: #f5f5f5;
-		color: #999;
-		height: 40px;
-		line-height: 40px;
-		padding: 0 15px;
-		border-bottom: 1px solid #e8e8e8;
-	}
-	.cart-title > * {
-		float: left;
-	}
-	.cart-title > span {
-		width: 200px;
-		text-align: center;
-	}
-	.cart-title > span:first-child {
-		width: 350px;
-		text-align: left;
-	}
-	.cart-commodity > .cart-commodity-msg > ul > li {
-		border-bottom: 1px solid #e8e8e8;
-		height: 100px;
-		padding: 20px;
-	}
-	.cart-commodity-msg > ul > li > * {
-		float: left;
-		width: 200px;
-		text-align: center;
-		padding-top: 5px;
-	}
-	.cart-commodity-msg > ul > li > label {
-		width: 14px;
-		height: 14px;
-	}
-	.cart-commodity-msg > ul > li > .commodity-img {
-		width: 100px;
-		height: 100px;
-		padding: 0;
-	}
-	.commodity-img img {
-		width: 100%;
-		height: 100%;
-	}
-	.cart-commodity-msg > ul > li > .commodity-title {
-		padding-left: 10px;
-		width: 245px;
-		font-size: 16px;
-		text-align: left;
-	}
 	.cart-commodity .el-table__header-wrapper thead.has-gutter > tr > * {
-		background-color: #f5f5f5 !important;
+		background-color: #f5f5f5;
+		font-size: 16px;
+		font-weight: normal;
+	}
+	.cart-commodity .el-table__body-wrapper tbody > * > td:last-child span {
+		cursor: pointer;
 	}
 	.cart-commodity table img {
 		width: 100px;
@@ -221,6 +197,9 @@
 		text-align: right;
 		margin-bottom: 20px;
 		margin-top: 50px;
+	}
+	.cart-total span:first-child {
+		margin-right: 30px;
 	}
 	.cart-total > span:last-child {
 		color: #d4282d;

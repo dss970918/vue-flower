@@ -4,7 +4,8 @@
     	<div class="wrapper top-nav-wrapper">
 				<ul>
 					<li :class='{current:currentRoute=="/login"}'>
-						<router-link to='/login'>你好，请登录</router-link>
+						<!-- <router-link to='/login'>你好，请登录</router-link> -->
+						<span @click='login'>你好，请登录</span>
 					</li>
 					<li :class='{current:currentRoute=="/register"}'>
 						<router-link to='/register'>快速注册</router-link>
@@ -130,6 +131,22 @@
     		</div>
     	</div>
     </div>
+
+    <el-dialog title="登录" :visible.sync="loginForm.visible">
+		  <el-form :model="loginForm.form">
+		    <el-form-item label="用户名" label-width="100px">
+		      <el-input v-model="loginForm.form.username" auto-complete="off"></el-input>
+		    </el-form-item>
+		    <el-form-item label="密码" label-width="100px">
+		      <el-input v-model="loginForm.form.password" auto-complete="off" show-password></el-input>
+		    </el-form-item>
+		  </el-form>
+		  <div slot="footer" class="dialog-footer">
+		    <el-button @click="closeLoginForm">取 消</el-button>
+		    <el-button type="primary" @click="toLogin">确 定</el-button>
+		  </div>
+		</el-dialog>
+
   </div>
 </template>
 
@@ -138,7 +155,14 @@
 		data(){
 			return {
 				currentRoute:'/',
-				input:''
+				input:'',
+				loginForm:{
+					visible:false,
+					form:{
+						username: '',
+	          password:''
+					}
+				}
 			}
 		},
 		created(){
@@ -153,7 +177,16 @@
 			}
 		},
 		methods:{
-			
+			login(){
+				this.loginForm.visible=true;
+			},
+			closeLoginForm(){
+				this.loginForm.visible=false;
+				this.loginForm.form={};
+			},
+			toLogin(){
+
+			}
 		}
 	}
 </script>

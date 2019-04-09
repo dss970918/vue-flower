@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
-import Login from '@/pages/Login'
 import Register from '@/pages/Register'
 import Order from '@/pages/Order'
 import ShoppingCart from '@/pages/ShoppingCart'
@@ -19,9 +18,6 @@ export default new Router({
     {
       path: '/',
       component: HelloWorld
-    },{
-      path: '/login',
-      component: Login
     },{
       path: '/register',
       component: Register

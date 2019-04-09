@@ -37,8 +37,11 @@ div {
 	margin-right: 50px;
 	line-height: 35px;
 }
-.top-nav ul > li a:hover {
+.top-nav ul > li *:hover {
 	color: red;
+}
+.top-nav ul > li:first-child span {
+	cursor: pointer;
 }
 .top-nav ul > li:nth-child(2) a {
 	color: red;
