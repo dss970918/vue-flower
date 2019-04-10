@@ -3,9 +3,15 @@
     <div class="top-nav">
     	<div class="wrapper top-nav-wrapper">
 				<ul>
-					<li :class='{current:currentRoute=="/login"}'>
-						<!-- <router-link to='/login'>你好，请登录</router-link> -->
-						<span @click='login'>你好，请登录</span>
+					<li>
+						<el-dropdown  @command="handleCommand" trigger='click'>
+				      <span @click='login($event)' class="el-dropdown-link">
+				        {{user.username?user.username:'你好，请登录'}}<i class="el-icon-arrow-down el-icon--right"></i>
+				      </span>
+				      <el-dropdown-menu slot="dropdown" v-if='dropdownMenu'>
+				        <el-dropdown-item command='logout'>退出登录</el-dropdown-item>
+				      </el-dropdown-menu>
+				    </el-dropdown>
 					</li>
 					<li :class='{current:currentRoute=="/register"}'>
 						<router-link to='/register'>快速注册</router-link>
@@ -132,18 +138,18 @@
     	</div>
     </div>
 
-    <el-dialog title="登录" :visible.sync="loginForm.visible">
-		  <el-form :model="loginForm.form">
-		    <el-form-item label="用户名" label-width="100px">
+    <el-dialog class='loginDialog' title="登录" :visible.sync="loginForm.visible" center>
+		  <el-form :model="loginForm.form" ref='loginDialog' label-position='left'>
+		    <el-form-item label="用户名" label-width="70px" prop='username'>
 		      <el-input v-model="loginForm.form.username" auto-complete="off"></el-input>
 		    </el-form-item>
-		    <el-form-item label="密码" label-width="100px">
+		    <el-form-item label="密码" label-width="70px" prop='password'>
 		      <el-input v-model="loginForm.form.password" auto-complete="off" show-password></el-input>
 		    </el-form-item>
 		  </el-form>
 		  <div slot="footer" class="dialog-footer">
 		    <el-button @click="closeLoginForm">取 消</el-button>
-		    <el-button type="primary" @click="toLogin">确 定</el-button>
+		    <el-button @click="toLogin">确 定</el-button>
 		  </div>
 		</el-dialog>
 
@@ -162,7 +168,24 @@
 						username: '',
 	          password:''
 					}
-				}
+				},
+				user:{
+					username:''
+				},
+				dropdownMenu:true
+				/*rules:{
+					username:[{
+						required:true,
+						message:'请输入用户名',
+						trigger:'blur'
+					}],
+					password:[{
+						required:true,
+						message:'请输入密码',
+						trigger:'blur'
+
+					}]
+				}*/
 			}
 		},
 		created(){
@@ -177,15 +200,51 @@
 			}
 		},
 		methods:{
-			login(){
-				this.loginForm.visible=true;
+			handleCommand(command){
+        if(command=='logout'){
+        	this.user.username='';//这也只是暂时的
+
+          /*axios.get('/logout')
+          .then(()=>{
+            localStorage.removeItem('user');
+          })*/
+        	this.$message.success('退出登录');
+        }
+      },
+			login(e){
+				// 点击你好请登录
+				if(e.target.innerText=='你好，请登录'){
+					this.dropdownMenu=false;//不显示dropdown
+					this.loginForm.visible=true;
+				}else{
+					this.dropdownMenu=true;
+				}
 			},
 			closeLoginForm(){
+				// 关闭登录模态框
 				this.loginForm.visible=false;
 				this.loginForm.form={};
 			},
 			toLogin(){
+				// 登录校验
+				this.$refs.loginDialog.validate((valid)=>{
+					if(valid){
+						if(this.loginForm.form.username==''||this.loginForm.form.password==''){
+							this.$message.warning('请输入用户名或密码')
+						}else{
+							this.$notify.info({message:'都写了可以进行验证了~'});
+							// 此处进行验证
+							
 
+							// 成功后将user.username=loginForm.form.username
+							this.user.username=this.loginForm.form.username;
+
+							// 关闭login模态框
+							this.loginForm.visible=false;
+							this.$message.success('登录成功');
+						}
+					}
+				})
 			}
 		}
 	}

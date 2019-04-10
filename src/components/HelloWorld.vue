@@ -80,107 +80,23 @@
       <div class="wrapper hot-wrapper">
         <div class="hot-wrapper-title">人气推荐<i class="fa fa-fire"></i></div>
         <ul>
-          <!-- <li>
+          <li v-for='msg in hotmsg' :key='msg.id'>
             <div class="hot-img">
-              <router-link to='/commodity'>
-                <img src="@/assets/9.jpg" alt="">
-              </router-link>
+              <a @click='tocommodity(msg)'>
+                <img :src="msg.src" alt="">
+              </a>
             </div>
             <div class="hot-msg">
-              <div class="hot-msg-head"><span>特惠</span></div>
+              <div class="hot-msg-head"><span>{{msg.hotmsghead}}</span></div>
               <div class="hot-msg-title">
-                <router-link to='/commodity'>永生花桃心玻璃罩礼盒</router-link>
+                <router-link to='/plate/commodity'>{{msg.title}}</router-link>
               </div>
               <p class="hot-msg-price">
-                <span>￥176</span>
-                <span>￥235</span>
+                <span>￥{{msg.price1}}</span>
+                <span>￥{{msg.price2}}</span>
                 <span class="hot-msg-down">
                   <i class="fa fa-long-arrow-down"></i>
-                  <span>直降59</span>
-                </span>
-              </p>
-            </div>
-          </li>
-          <li>
-            <div class="hot-img">
-              <router-link to='/commodity'>
-                <img src="@/assets/10.jpg" alt="">
-              </router-link>
-            </div>
-            <div class="hot-msg">
-              <div class="hot-msg-head"><span>限时购</span></div>
-              <div class="hot-msg-title">
-                <router-link to='/commodity'>永生花桃心玻璃罩礼盒</router-link>
-              </div>
-              <p class="hot-msg-price">
-                <span>￥176</span>
-                <span>￥235</span>
-                <span class="hot-msg-down">
-                  <i class="fa fa-long-arrow-down"></i>
-                  <span>直降59</span>
-                </span>
-              </p>
-            </div>
-          </li>
-          <li>
-            <div class="hot-img">
-              <router-link to='/commodity'>
-                <img src="@/assets/11.jpg" alt="">
-              </router-link>
-            </div>
-            <div class="hot-msg">
-              <div class="hot-msg-head"><span>内部价</span></div>
-              <div class="hot-msg-title">
-                <router-link to='/commodity'>永生花桃心玻璃罩礼盒</router-link>
-              </div>
-              <p class="hot-msg-price">
-                <span>￥176</span>
-                <span>￥235</span>
-                <span class="hot-msg-down">
-                  <i class="fa fa-long-arrow-down"></i>
-                  <span>直降59</span>
-                </span>
-              </p>
-            </div>
-          </li>
-          <li>
-            <div class="hot-img">
-              <router-link to='/commodity'>
-                <img src="@/assets/12.jpg" alt="">
-              </router-link>
-            </div>
-            <div class="hot-msg">
-              <div class="hot-msg-head"><span>满折</span></div>
-              <div class="hot-msg-title">
-                <router-link to='/commodity'>永生花桃心玻璃罩礼盒</router-link>
-              </div>
-              <p class="hot-msg-price">
-                <span>￥176</span>
-                <span>￥235</span>
-                <span class="hot-msg-down">
-                  <i class="fa fa-long-arrow-down"></i>
-                  <span>直降59</span>
-                </span>
-              </p>
-            </div>
-          </li> -->
-          <li v-for='hot in hotmsg' :key='hot.id'>
-            <div class="hot-img">
-              <router-link to='/plate/commodity'>
-                <img :src="hot.src" alt="">
-              </router-link>
-            </div>
-            <div class="hot-msg">
-              <div class="hot-msg-head"><span>{{hot.hotmsghead}}</span></div>
-              <div class="hot-msg-title">
-                <router-link to='/plate/commodity'>{{hot.hotmsgtitle}}</router-link>
-              </div>
-              <p class="hot-msg-price">
-                <span>{{hot.hotmsgprice1}}</span>
-                <span>{{hot.hotmsgprice2}}</span>
-                <span class="hot-msg-down">
-                  <i class="fa fa-long-arrow-down"></i>
-                  <span>{{hot.hotmsgdown}}</span>
+                  <span>直降{{msg.price2-msg.price1}}</span>
                 </span>
               </p>
             </div>
@@ -193,23 +109,23 @@
       <div class="wrapper time-limit-wrapper">
         <div class="time-limit-title">限时推荐<i class="fa fa-clock-o"></i></div>
         <ul>
-          <li v-for='time in timelimit'>
+          <li v-for='msg in timelimit'>
             <div class="time-img">
-              <router-link to='/plate/commodity'>
-                <img :src="time.src" alt="">
-              </router-link>
+              <a @click='tocommodity(msg)'>
+                <img :src="msg.src" alt="">
+              </a>
             </div>
             <div class="timelimit">
-              <div class="timelimit-head"><span>{{time.timelimithead}}</span></div>
+              <div class="timelimit-head"><span>{{msg.timelimithead}}</span></div>
               <div class="timelimit-title">
-                <router-link to='/plate/commodity'>{{time.timelimittitle}}</router-link>
+                <router-link to='/plate/commodity'>{{msg.title}}</router-link>
               </div>
               <p class="timelimit-price">
-                <span>{{time.timelimitprice1}}</span>
-                <span>{{time.timelimitprice2}}</span>
+                <span>￥{{msg.price1}}</span>
+                <span>￥{{msg.price2}}</span>
                 <span class="timelimit-down">
                   <i class="fa fa-long-arrow-down"></i>
-                  <span>{{time.timelimitdown}}</span>
+                  <span>直降{{msg.price2-msg.price1}}</span>
                 </span>
               </p>
             </div>
@@ -347,87 +263,98 @@
         }],
 
         hotmsg:[{
-          id:'10',
+          id:'500',
           src:require('@/assets/immortal-1.jpg'),
           hotmsghead:'特惠',
-          hotmsgtitle:' 桃心玻璃罩 永生花 礼盒',
-          hotmsgprice1:'￥176',
-          hotmsgprice2:'￥235',
-          hotmsgdown:'直降59'
+          title:' 桃心玻璃罩 永生花 礼盒',
+          price1:'176',
+          price2:'235',
+          src0:require('@/assets/immortal-1/500.jpg'),
+          src1:require('@/assets/immortal-1/500-1.jpg'),
+          src2:require('@/assets/immortal-1/500-2.jpg'),
+          material:'永生花',
+          language:'永生花花语',
+          packing:'内层白色雾面纸，外层牛皮纸,咖啡色花结'
         },{
-          id:'11',
+          id:'302',
           src:require('@/assets/love-3.jpg'),
           hotmsghead:'限时购',
-          hotmsgtitle:'致美丽的你 红玫瑰',
-          hotmsgprice1:'￥138',
-          hotmsgprice2:'￥191',
-          hotmsgdown:'直降53'
+          title:'致美丽的你 红玫瑰',
+          price1:'138',
+          price2:'191',
+          src0:require('@/assets/love-3/302.jpg'),
+          src1:require('@/assets/love-3/302-1.jpg'),
+          src2:require('@/assets/love-3/302-2.jpg'),
+          material:'红玫瑰11枝，粉色(或者紫色）勿忘我0.3扎，栀子叶8枝',
+          language:'一心一意我只属于你、一生一世只爱你一个、两个人永远相爱，永不分离。纵然途中万般风景，我的眼里只有你！很爱很爱你，想把你捧在手心，放在心里',
+          packing:'内层白色雾面纸，外层牛皮纸,咖啡色花结',
         },{
-          id:'12',
+          id:'405',
           src:require('@/assets/thanks-6.jpg'),
           hotmsghead:'满折',
-          hotmsgtitle:'温馨问候',
-          hotmsgprice1:'￥285',
-          hotmsgprice2:'￥389',
-          hotmsgdown:'直降96'
+          title:'温馨问候',
+          price1:'285',
+          price2:'389',
+          src0:require('@/assets/thanks-6/405.jpg'),
+          src1:require('@/assets/thanks-6/405-1.jpg'),
+          src2:require('@/assets/thanks-6/405-2.jpg')
         },{
-          id:'13',
+          id:'501',
           src:require('@/assets/immortal-2.jpg'),
           hotmsghead:'满减',
-          hotmsgtitle:'Be My Love',
-          hotmsgprice1:'￥398',
-          hotmsgprice2:'￥598',
-          hotmsgdown:'直降200'
+          title:'Be My Love',
+          price1:'398',
+          price2:'598',
+          src0:require('@/assets/immortal-2/501.jpg'),
+          src1:require('@/assets/immortal-2/501-1.jpg'),
+          src2:require('@/assets/immortal-2/501-2.jpg')
         },{
-          id:'14',
+          id:'400',
           src:require('@/assets/thanks-1.jpg'),
           hotmsghead:'满减',
-          hotmsgtitle:'母爱 康乃馨',
-          hotmsgprice1:'￥175',
-          hotmsgprice2:'￥228',
-          hotmsgdown:'直降53'
+          title:'母爱 康乃馨',
+          price1:'175',
+          price2:'228',
+          src0:require('@/assets/thanks-1/400.jpg'),
+          src1:require('@/assets/thanks-1/400-1.jpg'),
+          src2:require('@/assets/thanks-1/400-2.jpg')
         }],
 
         timelimit:[{
           id:'20',
           src:require('@/assets/time-1.jpg'),
           timelimithead:'限时购',
-          timelimittitle:'绿野仙踪 永生花 鲜花礼盒',
-          timelimitprice1:'￥499',
-          timelimitprice2:'￥520',
-          timelimitdown:'直降31'
+          title:'绿野仙踪 永生花 鲜花礼盒',
+          price1:'499',
+          price2:'520',
         },{
-          id:'21',
+          id:'506',
           src:require('@/assets/immortal-7.jpg'),
           timelimithead:'限时购',
-          timelimittitle:'永生花 玻璃罩 礼盒',
-          timelimitprice1:'￥338',
-          timelimitprice2:'￥399',
-          timelimitdown:'直降61'
+          title:'永生花 玻璃罩 礼盒',
+          price1:'338',
+          price2:'399',
         },{
-          id:'22',
-          src:require('@/assets/time-3.jpg'),
+          id:'308',
+          src:require('@/assets/love-9.jpg'),
           timelimithead:'满折',
-          timelimittitle:'恋恋情深 香槟玫瑰',
-          timelimitprice1:'￥199',
-          timelimitprice2:'￥255',
-          timelimitdown:'直降56'
+          title:'恋恋情深 香槟玫瑰',
+          price1:'199',
+          price2:'255',
         },{
-          id:'23',
+          id:'401',
           src:require('@/assets/thanks-2.jpg'),
           timelimithead:'满减',
-          timelimittitle:'天使之祈',
-          timelimitprice1:'￥198',
-          timelimitprice2:'￥252',
-          timelimitdown:'直降54'
+          title:'天使之祈',
+          price1:'198',
+          price2:'252',
         },{
           id:'24',
           src:require('@/assets/time-5.jpg'),
           timelimithead:'满减',
-          timelimittitle:'甜美公主',
-          timelimitprice1:'￥376',
-          timelimitprice2:'￥485',
-          timelimitdown:'直降109'
+          title:'甜美公主',
+          price1:'376',
+          price2:'485',
         }],
 
         lovemsg:[{
@@ -582,7 +509,30 @@
       }
     },
     methods:{
-      
+      tocommodity(msg){
+        this.$router.push({
+          path:'/plate/commodity',
+          query:{
+            id:msg.id,
+            name:msg.title,
+            price1:msg.price2,
+            price2:msg.price1,
+            //以下的还是从后台获取吧
+            src:[{
+              src:msg.src0
+            },{
+              src:msg.src1
+            },{
+              src:msg.src2
+            }],
+            material:msg.material,
+            language:msg.language,
+            packing:msg.packing
+          }
+        })
+        
+        
+      }
     }
   }
 </script>

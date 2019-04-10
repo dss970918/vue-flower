@@ -83,7 +83,7 @@
 					visible:false,	//修改收货信息的模态框
 					form:{
 						receiver:'刘浩',
-						telephone:'18454236854',
+						telephone:'18454236834',
 						address:'江苏省苏州市昆山市巴城镇学院路999号美居客电商产业大楼'
 					}
 				},

@@ -4,7 +4,7 @@
     	<div class="wrapper commodity-wrapper">
     		<div class="commodity-left">
 					<ul>
-						<li v-for='imgnav in commoditynav'>
+						<li v-for='imgnav in commodity.src'>
 							<img :src="imgnav.src" alt="">
 							<img :src="imgnav.src" alt="">
 						</li>
@@ -35,10 +35,10 @@
     				</div>
     			</div>
     			<div class="commodity-price">
-    				<div class="commodity-price1">市场价：{{commodity.price1}}</div>
+    				<div class="commodity-price1">市场价：￥{{commodity.price1}}</div>
     				<div class="commodity-price2">
 							<span>现价：</span>
-							<span>{{commodity.price2}}</span>
+							<span>￥{{commodity.price2}}</span>
     				</div>
     				<div class="commodity-buy">
     					<div class="number">
@@ -62,21 +62,20 @@
 		data(){
 			return {
 				commodity:{
-					id:'300',
-					name:'一心一意',
-					material:'红玫瑰11枝，粉色(或者紫色）勿忘我0.3扎，栀子叶8枝',
-					language:'一心一意我只属于你、一生一世只爱你一个、两个人永远相爱，永不分离。纵然途中万般风景，我的眼里只有你！很爱很爱你，想把你捧在手心，放在心里',
-					packing:'内层白色雾面纸，外层牛皮纸,咖啡色花结',
-					price1:'￥189',
-					price2:'￥138'
+					//id:'',
+					//name:'',
+					//material:'鲜花材料',
+					//language:'鲜花花语',
+					//packing:'鲜花包装',
+					//price1:'',
+					//price2:'',
+					/*src:[{
+						src:require(''),
+						src1:require(''),
+						src2:require('')
+					}]*/
+					
 				},
-				commoditynav:[{
-					src:require('@/assets/love-1/9010011.jpg')
-				},{
-					src:require('@/assets/love-1/201709011117442888.jpg')
-				},{
-					src:require('@/assets/love-1/201709151725463208.jpg')
-				}],
 				number:'1'
 			}
 		},
@@ -85,7 +84,12 @@
 				// console.log(this.number)
 				if(this.number>=99){this.number=99}
 				if(this.number<1){this.number=1}
-			}
+			},
+			'$route':'getcommodity'
+		},
+		created(){
+			this.getcommodity();
+			//console.log(this.commodity.src)
 		},
 		methods:{
 			minus(){
@@ -110,6 +114,11 @@
 			addshoppingcart(){
 				// 加入购物车
 				this.$message.success('加入购物车成功')
+			},
+			getcommodity(){
+				// 页面跳转时get的商品数据
+				let commoditymsg=this.$route.query;
+				this.commodity=Object.assign(this.commodity,commoditymsg)
 			}
 		}
 	}

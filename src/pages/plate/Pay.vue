@@ -167,6 +167,7 @@
 			saveOrUpdateReceive(){
 				// 保存->保存新收货信息
 
+				// 传参数到收货信息，并刷新页面
 				this.receive.visible=false;
 			},
 			gopay(){
@@ -201,6 +202,8 @@
 				this.paynow.visible=false;
 				this.pay.visible=false;
 				this.$router.push('/');
+				// 传数据到购物车，清除掉支付成功的商品
+				// 传数据到我的订单，添加支付成功的商品
 			}
 		}
 	}
