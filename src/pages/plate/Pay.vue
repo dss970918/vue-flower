@@ -41,6 +41,9 @@
 							</li>
 						</ul>
 					</div>
+
+					{{commodity}}
+
 					<div class="pay-pay">
 						<div class="pay-total"><span>总计：</span><span>￥{{total_price}}</span></div>
 						<div class="pay-gopay"><el-button @click='gopay'>去付款</el-button></div>
@@ -121,13 +124,19 @@
 					}
 				},
 				// 商品信息
-				commodity:[{
-					id:'300',
+				commodity:[/*{
+					//id:'300',
 					name:'一心一意',
 					price2:'138',
 					src:require('@/assets/love-1/9010011.jpg'),
 					number:'2'
-				}],
+				}*//*,{
+					//id:'300',
+					//name:'一心3意',
+					//price2:'28',
+					//src:require('@/assets/love-1/9010011.jpg'),
+					//number:'4'
+				}*/],
 				// 去支付模态框
 				pay:{
 					visible:false
@@ -153,7 +162,7 @@
 			}
 		},
 		created(){
-
+			this.getcommodityid();
 		},
 		methods:{
 			toModifyMsg(){
@@ -204,6 +213,21 @@
 				this.$router.push('/');
 				// 传数据到购物车，清除掉支付成功的商品
 				// 传数据到我的订单，添加支付成功的商品
+			},
+			getcommodityid(){
+				// 页面跳转时get商品id commodity->pay
+				
+				let id=this.$route.query.id;	// id是数组
+				//console.log(id)
+				if(Array.isArray(id)===true){
+					let entries=id.entries();		// entries为数组的key,val值
+					for([index,val] of entries){
+						//console.log(index,val)
+						this.commodity.push(val);	// 将{id:'302'}push到commodity数组中
+					}
+				}
+				
+				
 			}
 		}
 	}

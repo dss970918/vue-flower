@@ -47,7 +47,7 @@
     						<el-input v-model='number' ref='number' @blur='BlurText($event)'></el-input>
     						<el-button icon='el-icon-plus' @click='plus'></el-button>
     					</div>
-    					<router-link to='/plate/pay' class="buy">立即购买</router-link>
+    					<router-link :to="{path:'/plate/pay',query:{id:[{id:commodity.id}]}}" class="buy">立即购买</router-link>
     					<a class="addshoppingcart" @click='addshoppingcart'><i class="fa fa-shopping-cart"></i>加入购物车</a>
     				</div>
     			</div>
@@ -79,6 +79,7 @@
 				number:'1'
 			}
 		},
+		
 		watch:{
 			number:function(){
 				// console.log(this.number)
@@ -87,10 +88,11 @@
 			},
 			'$route':'getcommodity'
 		},
+		
 		created(){
-			this.getcommodity();
-			//console.log(this.commodity.src)
+			this.getcommodityid();
 		},
+		
 		methods:{
 			minus(){
 				if(this.number>1&&this.number<=99){
@@ -115,10 +117,12 @@
 				// 加入购物车
 				this.$message.success('加入购物车成功')
 			},
-			getcommodity(){
-				// 页面跳转时get的商品数据
-				let commoditymsg=this.$route.query;
-				this.commodity=Object.assign(this.commodity,commoditymsg)
+			getcommodityid(){
+				// 页面跳转时get商品id
+				/*let commoditymsg=this.$route.query;
+				this.commodity=Object.assign(this.commodity,commoditymsg)*/
+				let id=this.$route.query.id;
+				this.commodity.id=id
 			}
 		}
 	}

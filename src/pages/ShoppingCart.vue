@@ -150,7 +150,26 @@
 				}
 			},
 			gopay(){
-				this.$router.push('/plate/pay')
+				// 去支付
+				if(this.multipleSelection.length==0){
+					this.$message.warning('请选择商品')
+				}else{
+					let arr=[];
+					this.multipleSelection.forEach(item=>{
+						arr.push({id:item.id})
+					})
+					//console.log(arr);
+					this.$router.push({
+						path:'/plate/pay',
+						query:{
+							id:arr
+						}
+					})
+
+					
+				}
+				
+				
 			},
 			deletecommodity(row){
 				this.$confirm('确认删除商品？', '提示', {
