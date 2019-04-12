@@ -43,11 +43,14 @@
     				<div class="commodity-buy">
     					<div class="number">
     						<span>数量：</span>
-    						<el-button icon='el-icon-minus' @click='minus'></el-button>
+    						<!-- <el-button icon='el-icon-minus' @click='minus'></el-button>
     						<el-input v-model='number' ref='number' @blur='BlurText($event)'></el-input>
-    						<el-button icon='el-icon-plus' @click='plus'></el-button>
+    						<el-button icon='el-icon-plus' @click='plus'></el-button> -->
+
+								<el-input-number v-model="number" @change='handleChange' :precision="0" :min="1" :max="99"></el-input-number>
+
     					</div>
-    					<router-link :to="{path:'/plate/pay',query:{id:[{id:commodity.id}]}}" class="buy">立即购买</router-link>
+    					<router-link :to="{path:'/plate/pay',query:{id:[{id:commodity.id,number:number}]}}" class="buy">立即购买</router-link>
     					<a class="addshoppingcart" @click='addshoppingcart'><i class="fa fa-shopping-cart"></i>加入购物车</a>
     				</div>
     			</div>
@@ -81,12 +84,12 @@
 		},
 		
 		watch:{
-			number:function(){
+			/*number:function(){
 				// console.log(this.number)
 				if(this.number>=99){this.number=99}
 				if(this.number<1){this.number=1}
-			},
-			'$route':'getcommodity'
+			},*/
+			
 		},
 		
 		created(){
@@ -94,7 +97,7 @@
 		},
 		
 		methods:{
-			minus(){
+			/*minus(){
 				if(this.number>1&&this.number<=99){
 					this.number--;
 				}
@@ -111,6 +114,12 @@
 					this.$message.warning('请输入正整数');
 					e.target.value='1';
 					this.$refs.number.focus();
+				}
+			},*/
+			handleChange(value){
+				let boolean=new RegExp('^[1-9][0-9]*$').test(value);
+				if(!boolean){
+					this.$message.warning('请输入正整数');
 				}
 			},
 			addshoppingcart(){

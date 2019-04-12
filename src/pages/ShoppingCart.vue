@@ -154,10 +154,10 @@
 				if(this.multipleSelection.length==0){
 					this.$message.warning('请选择商品')
 				}else{
-					let arr=[];
+					let arr=[];//arr中包含商品的id和number
 					this.multipleSelection.forEach(item=>{
-						arr.push({id:item.id})
-					})
+						arr.push({id:item.id,number:item.number})
+					});
 					//console.log(arr);
 					this.$router.push({
 						path:'/plate/pay',
@@ -165,8 +165,6 @@
 							id:arr
 						}
 					})
-
-					
 				}
 				
 				

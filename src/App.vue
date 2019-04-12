@@ -4,9 +4,9 @@
     	<div class="wrapper top-nav-wrapper">
 				<ul>
 					<li>
-						<el-dropdown  @command="handleCommand" trigger='click'>
+						<el-dropdown @command="handleCommand" trigger='click'>
 				      <span @click='login($event)' class="el-dropdown-link">
-				        {{user.username?user.username:'你好，请登录'}}<i class="el-icon-arrow-down el-icon--right"></i>
+				        {{user.username?user.username:'你好，请登录'}}
 				      </span>
 				      <el-dropdown-menu slot="dropdown" v-if='dropdownMenu'>
 				        <el-dropdown-item command='logout'>退出登录</el-dropdown-item>
