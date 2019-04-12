@@ -44,7 +44,6 @@
 		      <template slot-scope='{row}'>
 		      	<span @click='deletecommodity(row)'>删除</span><!-- 此处删除应传row.id -->
 		      	<span @click='show(row)'>查看详情</span>
-		      	
 
 		      	<el-dialog title="订单详情" :visible.sync="row.visible">
 					  	<div class="order-receiver">
@@ -80,7 +79,6 @@
 		    </el-table-column>
 		  </el-table>
 		</div>
-
 		
 	</div>
 </template>
@@ -89,7 +87,6 @@
 	export default {
 		data(){
 			return {
-				visible:false,
 				msg:[{
 					visible:false,
 					receive:{
