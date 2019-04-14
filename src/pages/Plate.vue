@@ -9,14 +9,10 @@
 	            <div class="title">鲜花品种</div>
 	            <ul>
 	              <li><router-link to='/plate/overview'>玫瑰</router-link></li>
-	              <li><router-link to='/plate/overview'>风信子</router-link></li>
-	              <li><router-link to='/plate/overview'>紫罗兰</router-link></li>
-	              <li><router-link to='/plate/overview'>桂花</router-link></li>
 	              <li><router-link to='/plate/overview'>百合</router-link></li>
+	              <li><router-link to='/plate/overview'>紫罗兰</router-link></li>
 	              <li><router-link to='/plate/overview'>康乃馨</router-link></li>
-	              <li><router-link to='/plate/overview'>栀子花</router-link></li>
 	              <li><router-link to='/plate/overview'>郁金香</router-link></li>
-	              <li><router-link to='/plate/overview'>马蹄莲</router-link></li>
 	            </ul>
 	          </div>
 	          <div class="platenav-block-purpose">
@@ -25,7 +21,6 @@
 	              <li><router-link to='/plate/overview'>爱情鲜花</router-link></li>
 	              <li><router-link to='/plate/overview'>探病鲜花</router-link></li>
 	              <li><router-link to='/plate/overview'>友情鲜花</router-link></li>
-	              <li><router-link to='/plate/overview'>道歉鲜花</router-link></li>
 	              <li><router-link to='/plate/overview'>祝贺鲜花</router-link></li>
 	              <li><router-link to='/plate/overview'>婚庆鲜花</router-link></li>
 	              <li><router-link to='/plate/overview'>商务鲜花</router-link></li>
@@ -38,7 +33,6 @@
 	              <li><router-link to='/plate/overview'>永生花</router-link></li>
 	              <li><router-link to='/plate/overview'>花束</router-link></li>
 	              <li><router-link to='/plate/overview'>香皂花</router-link></li>
-	              <li><router-link to='/plate/overview'>瓶花</router-link></li>
 	              <li><router-link to='/plate/overview'>办公室盆栽</router-link></li>
 	            </ul>
 	          </div>
@@ -125,7 +119,7 @@
     color: #fff;
   }
   .plate-nav-wrapper > .platenav-title{
-    width: 280px;
+    width: 250px;
     color: #fff;
     font-size: 17px;
     background-color: #f76372;
@@ -148,7 +142,7 @@
     background-color: rgba(247,99,114,1);
   }
   .platenav-title > .platenav-block {
-  	width: 280px;
+  	width: 250px;
     height: 329px;
     background-color: #fff;
     /* border-bottom: 2px solid #f76372; */
@@ -168,7 +162,7 @@
     text-align: center;
   }
   .platenav-block > * > ul {
-    width: 230px;
+    width: 200px;
     margin: 8px auto;
   }
   .platenav-block > * > ul > * {

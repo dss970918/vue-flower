@@ -61,7 +61,7 @@
     		</div>
     		<div class="service">
 					<i class="fa fa-phone"></i>123-456-789
-					<router-link to='/service'>
+					<router-link to='/plate/service/cjwt'>
 						<i class="fa fa-commenting"></i>
 						客户服务
 					</router-link>
@@ -78,26 +78,26 @@
 						<div>客户服务</div>
 						<div class="customer-server">
 							<div>
-								<router-link to='/service'>常见问题</router-link>
-								<router-link to='/service'>订单服务</router-link>
+								<router-link to='/plate/service/cjwt'>常见问题</router-link>
+								<router-link to='/plate/service/qxdd'>取消订单</router-link>
 							</div>
 							<div>
-								<router-link to='/service'>售后服务</router-link>
-								<router-link to='/service'>服务声明</router-link>
+								<router-link to='/plate/service/shfw'>售后服务</router-link>
+								<router-link to='/plate/service/fwsm'>服务声明</router-link>
 							</div>
 							<div>
-								<router-link to='/service'>配送说明</router-link>
-								<router-link to='/service'>安全条款</router-link>
+								<router-link to='/plate/service/pssm'>配送说明</router-link>
+								<router-link to='/plate/service/aqtk'>安全条款</router-link>
 							</div>
 						</div>
 					</div>
 					<div class="footer-help-center">
 						<div>咨询</div>
 						<div class="question">
-							<router-link to='/question'>鲜花购物流程？</router-link>
-							<router-link to='/question'>鲜花订购演示？</router-link>
-							<router-link to='/question'>鲜花售后服务？</router-link>
-							<router-link to='/question'>应该提前多久预定？</router-link>
+							<router-link to='/plate/service/liucheng'>鲜花购物流程？</router-link>
+							<router-link to='/plate/service/yanshi'>鲜花订购演示？</router-link>
+							<router-link to='/plate/service/pscs'>鲜花配送城市？</router-link>
+							<router-link to='/plate/service/yuding'>应该提前多久预定？</router-link>
 						</div>
 					</div>
 					<div class="footer-help-right">

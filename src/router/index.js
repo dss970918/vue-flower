@@ -9,7 +9,16 @@ import Overview from '@/pages/plate/Overview'
 import Commodity from '@/pages/plate/Commodity'
 import Pay from '@/pages/plate/Pay'
 import Service from '@/pages/Service'
-import Question from '@/pages/Question'
+import Cjwt from '@/pages/service/Cjwt'
+import Qxdd from '@/pages/service/Qxdd'
+import Shfw from '@/pages/service/Shfw'
+import Fwsm from '@/pages/service/Fwsm'
+import Pssm from '@/pages/service/Pssm'
+import Aqtk from '@/pages/service/Aqtk'
+import Liucheng from '@/pages/question/Liucheng'
+import Yanshi from '@/pages/question/Yanshi'
+import Pscs from '@/pages/question/Pscs'
+import Yuding from '@/pages/question/Yuding'
 
 Vue.use(Router)
 
@@ -39,19 +48,41 @@ export default new Router({
       },{
         path:'overview',
         component:Overview
+      },{
+        path:'service',
+        component:Service,
+        children:[{
+          path:'cjwt',
+          component:Cjwt
+        },{
+          path:'qxdd',
+          component:Qxdd
+        },{
+          path:'shfw',
+          component:Shfw
+        },{
+          path:'fwsm',
+          component:Fwsm
+        },{
+          path:'pssm',
+          component:Pssm
+        },{
+          path:'aqtk',
+          component:Aqtk
+        },{
+          path:'liucheng',
+          component:Liucheng
+        },{
+          path:'yanshi',
+          component:Yanshi
+        },{
+          path:'pscs',
+          component:Pscs
+        },{
+          path:'yuding',
+          component:Yuding
+        }]
       }]
-    },/*{
-      path: '/commodity',
-      component: Commodity
-    },*//*{
-      path: '/pay',
-      component: Pay
-    },*/{
-      path: '/service',
-      component: Service
-    },{
-      path: '/question',
-      component: Question
     }
   ]
 })
