@@ -29,7 +29,6 @@
 				          <span>咨询</span>
 				        </template>
 			          <el-menu-item index="/plate/service/liucheng">鲜花订购流程</el-menu-item>
-			          <el-menu-item index="/plate/service/yanshi">鲜花订购演示</el-menu-item>
 			          <el-menu-item index="/plate/service/pscs">鲜花配送城市</el-menu-item>
 			          <el-menu-item index="/plate/service/yuding">应该提前多久预定</el-menu-item>
 				      </el-submenu>

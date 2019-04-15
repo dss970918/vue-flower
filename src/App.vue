@@ -95,7 +95,6 @@
 						<div>咨询</div>
 						<div class="question">
 							<router-link to='/plate/service/liucheng'>鲜花购物流程？</router-link>
-							<router-link to='/plate/service/yanshi'>鲜花订购演示？</router-link>
 							<router-link to='/plate/service/pscs'>鲜花配送城市？</router-link>
 							<router-link to='/plate/service/yuding'>应该提前多久预定？</router-link>
 						</div>

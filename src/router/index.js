@@ -16,7 +16,6 @@ import Fwsm from '@/pages/service/Fwsm'
 import Pssm from '@/pages/service/Pssm'
 import Aqtk from '@/pages/service/Aqtk'
 import Liucheng from '@/pages/question/Liucheng'
-import Yanshi from '@/pages/question/Yanshi'
 import Pscs from '@/pages/question/Pscs'
 import Yuding from '@/pages/question/Yuding'
 
@@ -72,9 +71,6 @@ export default new Router({
         },{
           path:'liucheng',
           component:Liucheng
-        },{
-          path:'yanshi',
-          component:Yanshi
         },{
           path:'pscs',
           component:Pscs

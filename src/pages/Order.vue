@@ -125,10 +125,14 @@
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-        	//这只是暂时的
         	
-      		this.commodity.splice(this.commodity.indexOf(row),1);
+        	//这只是暂时的
+      		this.msg.splice(this.msg.indexOf(row),1);
+      		
       		// 此处应为axios.get
+          
+
+
           this.$message({
             type: 'success',
             message: '删除成功!'

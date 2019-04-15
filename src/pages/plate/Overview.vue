@@ -3,18 +3,18 @@
 		<div class="content">
     	<div class="wrapper plate-content-wrapper">
     		<ul>
-    			<li v-for='plate in platemsg'>
+    			<li v-for='msg in platemsg'>
             <div class="plate-img">
-              <router-link to='/plate/commodity'>
-                <img :src="plate.src" alt="">
+              <router-link :to='{path:"/plate/commodity",query:{id:msg.id}}'>
+                <img :src="msg.src" alt="">
               </router-link>
             </div>
             <div class="plate-msg">
               <div class="plate-msg-title">
-                <router-link to='/plate/commodity'>{{plate.platetitle}}</router-link>
+                <router-link :to='{path:"/plate/commodity",query:{id:msg.id}}'>{{msg.title}}</router-link>
               </div>
               <div class="plate-msg-price">
-                <span>{{plate.plateprice}}</span>
+                <span>￥{{msg.price}}</span>
               </div>
             </div>
           </li>
@@ -31,43 +31,43 @@
         platemsg:[{
           id:'300',
           src:require('@/assets/love-1.jpg'),
-          platetitle:'一心一意',
-          plateprice:'￥138'
+          title:'一心一意',
+          price:'138'
         },{
           id:'301',
           src:require('@/assets/love-2.jpg'),
-          platetitle:'爱你如初',
-          plateprice:'￥529'
+          title:'爱你如初',
+          price:'529'
         },{
           id:'302',
           src:require('@/assets/love-3.jpg'),
-          platetitle:'致美丽的你',
-          plateprice:'￥138'
+          title:'致美丽的你',
+          price:'138'
         },{
           id:'303',
           src:require('@/assets/love-4.jpg'),
-          platetitle:'青青子衿',
-          plateprice:'￥280'
+          title:'青青子衿',
+          price:'280'
         },{
           id:'304',
           src:require('@/assets/love-5.jpg'),
-          platetitle:'月光女神',
-          plateprice:'￥232'
+          title:'月光女神',
+          price:'232'
         },{
           id:'305',
           src:require('@/assets/love-6.jpg'),
-          platetitle:'真爱如初',
-          plateprice:'￥202'
+          title:'真爱如初',
+          price:'202'
         },{
           id:'306',
           src:require('@/assets/love-7.jpg'),
-          platetitle:'爱的小确幸',
-          plateprice:'￥309'
+          title:'爱的小确幸',
+          price:'309'
         },{
           id:'307',
           src:require('@/assets/love-8.jpg'),
-          platetitle:'致青春',
-          plateprice:'￥229'
+          title:'致青春',
+          price:'229'
         }]
       }
     },
