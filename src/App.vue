@@ -37,8 +37,8 @@
     	<div class="wrapper header-wrapper">
     		<div class="logo">
     			<router-link to='/'>
-    				<img src="@/assets/title-1.jpg" alt="">
-						<img src="@/assets/title-2.jpg" alt="">
+    				<img src="/static/title-1.jpg" alt="">
+						<img src="/static/title-2.jpg" alt="">
     			</router-link>
     		</div>
     		<div class="search">
@@ -112,23 +112,23 @@
     		<div class="footer-foot">
 					<div class="footer-foot-top">
 						<div>
-							<img src="@/assets/handshake-o.png" alt="">
+							<img src="/static/handshake-o.png" alt="">
 							<span>诚信网站</span>
 						</div>
 						<div>
-							<img src="@/assets/卡车.png" alt="">
+							<img src="/static/卡车.png" alt="">
 							<span>满98元免邮费</span>
 						</div>
 						<div>
-							<img src="@/assets/微信.png" alt="">
+							<img src="/static/微信.png" alt="">
 							<span>微信支付</span>
 						</div>
 						<div>
-							<img src="@/assets/支付宝.png" alt="">
+							<img src="/static/支付宝.png" alt="">
 							<span>支付宝</span>
 						</div>
 						<div>
-							<img src="@/assets/thumbs-up.png" alt="">
+							<img src="/static/thumbs-up.png" alt="">
 							<span>品质保证</span>
 						</div>
 					</div>
@@ -191,7 +191,7 @@
 
 		},
 		mounted(){
-			this.$router.push('/');
+			// this.$router.push('/');
 		},
 		watch:{
 			'$route':function(to,from){

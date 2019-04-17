@@ -54,47 +54,7 @@
 	export default {
 		data(){
 			return {
-				platemsg:[{
-          id:'300',
-          src:require('../assets/love-1.jpg'),
-          platetitle:'一心一意',
-          plateprice:'￥138'
-        },{
-          id:'301',
-          src:require('../assets/love-2.jpg'),
-          platetitle:'爱你如初',
-          plateprice:'￥529'
-        },{
-          id:'302',
-          src:require('../assets/love-3.jpg'),
-          platetitle:'致美丽的你',
-          plateprice:'￥138'
-        },{
-          id:'303',
-          src:require('../assets/love-4.jpg'),
-          platetitle:'青青子衿',
-          plateprice:'￥280'
-        },{
-          id:'304',
-          src:require('../assets/love-5.jpg'),
-          platetitle:'月光女神',
-          plateprice:'￥232'
-        },{
-          id:'305',
-          src:require('../assets/love-6.jpg'),
-          platetitle:'真爱如初',
-          plateprice:'￥202'
-        },{
-          id:'306',
-          src:require('../assets/love-7.jpg'),
-          platetitle:'爱的小确幸',
-          plateprice:'￥309'
-        },{
-          id:'307',
-          src:require('../assets/love-8.jpg'),
-          platetitle:'致青春',
-          plateprice:'￥229'
-        }]
+				
 			}
 		},
 		methods:{

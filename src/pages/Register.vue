@@ -87,7 +87,7 @@
 
 <style>
 	.register-wrapper {
-		background: url('../assets/z-login2.jpg') 0 0 no-repeat;
+		background: url('/static/z-login2.jpg') 0 0 no-repeat;
 		height: 500px;
 		background-size: contain;
 	}

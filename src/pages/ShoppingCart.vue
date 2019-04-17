@@ -25,7 +25,7 @@
 			      width="200"
 			      align='center'>
 			      <template slot-scope='{row}'>
-			      	<span>￥{{row.price2}}</span>
+			      	<span>￥{{row.pricel}}</span>
 			      </template>
 			    </el-table-column>
 			    <el-table-column
@@ -45,7 +45,7 @@
 			      width="200"
 			      align='center'>
 			      <template slot-scope='{row}'>
-			      	<div>￥{{row.number*row.price2}}</div>
+			      	<div>￥{{row.number*row.pricel}}</div>
 			      </template>
 			    </el-table-column>
 			    <el-table-column
@@ -78,27 +78,18 @@
 	export default {
 		data(){
 			return {
-				// 收件人的信息
-				receive:{
-					visible:false,	//修改收货信息的模态框
-					form:{
-						receiver:'刘浩',
-						telephone:'18454236834',
-						address:'江苏省苏州市昆山市巴城镇学院路999号美居客电商产业大楼'
-					}
-				},
 				// 商品信息
 				commodity:[{
 					id:'300',
 					name:'一心一意',
-					price2:'138',
-					src:require('@/assets/love-1/9010011.jpg'),
+					pricel:'138',
+					src:'/static/love-1/300.jpg',
 					number:'2'
 				},{
 					id:'307',
 					name:'致青春',
-					price2:'229',
-					src:require('@/assets/love-8.jpg'),
+					pricel:'229',
+					src:'/static/love-8.jpg',
 					number:'1'
 				}],
 				// 去支付模态框
@@ -119,7 +110,7 @@
 				// 计算总价
 				let total=0;
 				this.multipleSelection.forEach(item=>{
-					total+=Number(item.price2)*Number(item.number)
+					total+=Number(item.pricel)*Number(item.number)
 				})
 				return total;
 			},
@@ -127,7 +118,7 @@
 				// 计算单个商品价格
 				let price=0;
 				this.commodity.forEach(item=>{
-					price=Number(item.price2)*Number(item.number)
+					price=Number(item.pricel)*Number(item.number)
 				});
 				return price
 			}

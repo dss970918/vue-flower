@@ -13,8 +13,8 @@
               <div class="plate-msg-title">
                 <router-link :to='{path:"/plate/commodity",query:{id:msg.id}}'>{{msg.title}}</router-link>
               </div>
-              <div class="plate-msg-price">
-                <span>￥{{msg.price}}</span>
+              <div class="plate-msg-pricel">
+                <span>￥{{msg.pricel}}</span>
               </div>
             </div>
           </li>
@@ -30,44 +30,44 @@
       return {
         platemsg:[{
           id:'300',
-          src:require('@/assets/love-1.jpg'),
+          src:'/static/love-1.jpg',
           title:'一心一意',
-          price:'138'
+          pricel:'138'
         },{
           id:'301',
-          src:require('@/assets/love-2.jpg'),
+          src:'/static/love-2.jpg',
           title:'爱你如初',
-          price:'529'
+          pricel:'529'
         },{
           id:'302',
-          src:require('@/assets/love-3.jpg'),
+          src:'/static/love-3.jpg',
           title:'致美丽的你',
-          price:'138'
+          pricel:'138'
         },{
           id:'303',
-          src:require('@/assets/love-4.jpg'),
+          src:'/static/love-4.jpg',
           title:'青青子衿',
-          price:'280'
+          pricel:'280'
         },{
           id:'304',
-          src:require('@/assets/love-5.jpg'),
+          src:'/static/love-5.jpg',
           title:'月光女神',
-          price:'232'
+          pricel:'232'
         },{
           id:'305',
-          src:require('@/assets/love-6.jpg'),
+          src:'/static/love-6.jpg',
           title:'真爱如初',
-          price:'202'
+          pricel:'202'
         },{
           id:'306',
-          src:require('@/assets/love-7.jpg'),
+          src:'/static/love-7.jpg',
           title:'爱的小确幸',
-          price:'309'
+          pricel:'309'
         },{
           id:'307',
-          src:require('@/assets/love-8.jpg'),
+          src:'/static/love-8.jpg',
           title:'致青春',
-          price:'229'
+          pricel:'229'
         }]
       }
     },
@@ -116,7 +116,7 @@
   .plate-msg-title a:hover {
     color: #f76372;
   }
-  .plate-msg .plate-msg-price span {
+  .plate-msg .plate-msg-pricel span {
     font-size: 14px;
     color: #d4282d;
   }

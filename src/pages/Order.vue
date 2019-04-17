@@ -19,7 +19,7 @@
 		      width="200"
 		      align='center'>
 		      <template slot-scope='{row}'>
-		      	<span>￥{{row.commodity.price2}}</span>
+		      	<span>￥{{row.commodity.pricel}}</span>
 		      </template>
 		    </el-table-column>
 		    <el-table-column
@@ -35,7 +35,7 @@
 		      width="200"
 		      align='center'>
 		      <template slot-scope='{row}'>
-		      	<div>￥{{row.commodity.number*row.commodity.price2}}</div>
+		      	<div>￥{{row.commodity.number*row.commodity.pricel}}</div>
 		      </template>
 		    </el-table-column>
 		    <el-table-column
@@ -68,9 +68,9 @@
 					  		<div class="order-commoditymsg">
 							  	<div class="order-img"><img :src="row.commodity.src" alt=""></div>
 							  	<div class="order-msg">{{row.commodity.name}}</div>
-							  	<div class="order-price">￥{{row.commodity.price2}}</div>
+							  	<div class="order-price">￥{{row.commodity.pricel}}</div>
 							  	<div class="order-number">{{row.commodity.number}}</div>
-							  	<div class="order-total">￥{{row.commodity.number*row.commodity.price2}}</div>
+							  	<div class="order-total">￥{{row.commodity.number*row.commodity.pricel}}</div>
 							  </div>
 					  	</div>
 						  
@@ -97,8 +97,8 @@
 					commodity:{
 						id:'300',
 						name:'一心一意',
-						price2:'138',
-						src:require('@/assets/love-1/9010011.jpg'),
+						pricel:'138',
+						src:'/static/love-1.jpg',
 						number:'2'
 					}
 				},{
@@ -111,8 +111,8 @@
 					commodity:{
 						id:'307',
 						name:'致青春',
-						price2:'229',
-						src:require('@/assets/love-8.jpg'),
+						pricel:'229',
+						src:'/static/love-8.jpg',
 						number:'1'
 					}
 				}]

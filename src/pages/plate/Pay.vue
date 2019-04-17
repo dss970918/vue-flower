@@ -34,10 +34,10 @@
 							<li v-for='commodity in commodity'>
 								<div class="commodity-img"><img :src="commodity.src"></div>
 								<div class="commodity-title"><span>{{commodity.name}}</span></div>
-								<div class="commodity-price">￥<span>{{commodity.price2}}</span></div>
+								<div class="commodity-price">￥<span>{{commodity.pricel}}</span></div>
 								<div class="commodity-number"><span>{{commodity.number}}</span></div>
-								<div class="commodity-xiaoji">￥<span >{{commodity.number*commodity.price2}}</span></div>
-								<div class="commodity-shifu"><span>￥{{commodity.number*commodity.price2}}</span></div>
+								<div class="commodity-xiaoji">￥<span >{{commodity.number*commodity.pricel}}</span></div>
+								<div class="commodity-shifu"><span>￥{{commodity.number*commodity.pricel}}</span></div>
 							</li>
 						</ul>
 					</div>
@@ -78,15 +78,15 @@
 		  <div class="pay-way">
 		  	<el-radio-group v-model="radio">
 				  <el-radio :label="1">
-						<img src="@/assets/a-pay/支付宝.png">
+						<img src="static/a-pay/支付宝.png">
 						<span>支付宝</span>
 				  </el-radio>
 				  <el-radio :label="2">
-						<img src="@/assets/a-pay/微信.png">
+						<img src="static/a-pay/微信.png">
 						<span>微信支付</span>
 				  </el-radio>
 				  <el-radio :label="3">
-						<img src="@/assets/a-pay/银行卡.png">
+						<img src="static/a-pay/银行卡.png">
 						<span>银行卡</span>
 				  </el-radio>
 				</el-radio-group>
@@ -127,14 +127,14 @@
 				commodity:[/*{
 					//id:'300',
 					name:'一心一意',
-					price2:'138',
-					src:require('@/assets/love-1/9010011.jpg'),
+					pricel:'138',
+					src:'/static/love-1/9010011.jpg',
 					number:'2'
 				}*//*,{
 					//id:'300',
 					//name:'一心3意',
-					//price2:'28',
-					//src:require('@/assets/love-1/9010011.jpg'),
+					//pricel:'28',
+					//src:'/static/love-1/9010011.jpg',
 					//number:'4'
 				}*/],
 				// 去支付模态框
@@ -156,7 +156,7 @@
 				// 计算总价
 				let total=0;
 				this.commodity.forEach(item=>{
-					total+=Number(item.price2)*Number(item.number)
+					total+=Number(item.pricel)*Number(item.number)
 				})
 				return total;
 			}
@@ -223,7 +223,7 @@
 					let entries=id.entries();		// entries为数组的key,val值
 					for([index,val] of entries){
 						//console.log(index,val)
-						this.commodity.push(val);	// 将{id:'302'}push到commodity数组中
+						this.commodity.push(val);	// 将{id:'302',number:2}push到commodity数组中
 					}
 				}
 				

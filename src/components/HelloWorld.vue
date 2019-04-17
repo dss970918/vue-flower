@@ -82,21 +82,21 @@
         <ul>
           <li v-for='msg in hotmsg' :key='msg.id'>
             <div class="hot-img">
-              <router-link :to='{path:"/plate/commodity",query:{id:msg.id}}'>
+              <router-link :to='{path:"/plate/commodity",query:{id:msg.id}}' target='_blank'>
                 <img :src="msg.src" alt="">
               </router-link>
             </div>
             <div class="hot-msg">
               <div class="hot-msg-head"><span>{{msg.hotmsghead}}</span></div>
               <div class="hot-msg-title">
-                <router-link :to='{path:"/plate/commodity",query:{id:msg.id}}'>{{msg.title}}</router-link>
+                <router-link :to='{path:"/plate/commodity",query:{id:msg.id}}' target='_blank'>{{msg.title}}</router-link>
               </div>
               <p class="hot-msg-price">
-                <span>￥{{msg.price1}}</span>
-                <span>￥{{msg.price2}}</span>
+                <span>￥{{msg.pricel}}</span>
+                <span>￥{{msg.priceh}}</span>
                 <span class="hot-msg-down">
                   <i class="fa fa-long-arrow-down"></i>
-                  <span>直降{{msg.price2-msg.price1}}</span>
+                  <span>直降{{msg.priceh-msg.pricel}}</span>
                 </span>
               </p>
             </div>
@@ -111,21 +111,21 @@
         <ul>
           <li v-for='msg in timelimit'>
             <div class="time-img">
-              <router-link :to="{path:'/plate/commodity',query:{id:msg.id}}">
+              <router-link :to="{path:'/plate/commodity',query:{id:msg.id}}" target='_blank'>
                 <img :src="msg.src" alt="">
               </router-link>
             </div>
             <div class="timelimit">
               <div class="timelimit-head"><span>{{msg.timelimithead}}</span></div>
               <div class="timelimit-title">
-                <router-link :to='{path:"/plate/commodity",query:{id:msg.id}}'>{{msg.title}}</router-link>
+                <router-link :to='{path:"/plate/commodity",query:{id:msg.id}}' target='_blank'>{{msg.title}}</router-link>
               </div>
               <p class="timelimit-price">
-                <span>￥{{msg.price1}}</span>
-                <span>￥{{msg.price2}}</span>
+                <span>￥{{msg.pricel}}</span>
+                <span>￥{{msg.priceh}}</span>
                 <span class="timelimit-down">
                   <i class="fa fa-long-arrow-down"></i>
-                  <span>直降{{msg.price2-msg.price1}}</span>
+                  <span>直降{{msg.priceh-msg.pricel}}</span>
                 </span>
               </p>
             </div>
@@ -142,7 +142,7 @@
             <li>
               <router-link to='/plate/overview'>
                 <div class="love-left-img">
-                  <img src="@/assets/love.jpg" alt="">
+                  <img src="/static/love.jpg" alt="">
                 </div>
                 <div class="love-to">
                   <div class="love-to-title">爱情鲜花专区>></div>
@@ -151,17 +151,17 @@
             </li>
             <li v-for='msg in lovemsg'>
               <div class="love-img">
-                <router-link :to="{path:'/plate/commodity',query:{id:msg.id}}">
+                <router-link :to="{path:'/plate/commodity',query:{id:msg.id}}" target='_blank'>
                   <img :src="msg.src" alt="">
                 </router-link>
               </div>
               <div class="love-msg">
                 <div class="love-msg-title">
-                  <router-link :to='{path:"/plate/commodity",query:{id:msg.id}}'>{{msg.title}}</router-link>
+                  <router-link :to='{path:"/plate/commodity",query:{id:msg.id}}' target='_blank'>{{msg.title}}</router-link>
                 </div>
                 <div class="love-msg-price">
-                  <span>￥{{msg.price1}}</span>
-                  <span>￥{{msg.price2}}</span>
+                  <span>￥{{msg.pricel}}</span>
+                  <span>￥{{msg.priceh}}</span>
                 </div>
               </div>
             </li>
@@ -178,7 +178,7 @@
             <li>
               <router-link to='/plate/overview'>
                 <div class="thanks-left-img">
-                  <img src="@/assets/thanks.jpeg" alt="">
+                  <img src="/static/thanks.jpeg" alt="">
                 </div>
                 <div class="thanks-to">
                   <div class="thanks-to-title">感恩鲜花专区>></div>
@@ -187,17 +187,17 @@
             </li>
             <li v-for='msg in thanksmsg'>
               <div class="thanks-img">
-                <router-link :to='{path:"/plate/commodity",query:{id:msg.id}}'>
+                <router-link :to='{path:"/plate/commodity",query:{id:msg.id}}' target='_blank'>
                   <img :src="msg.src" alt="">
                 </router-link>
               </div>
               <div class="thanks-msg">
                 <div class="thanks-msg-title">
-                  <router-link :to='{path:"/plate/commodity",query:{id:msg.id}}'>{{msg.title}}</router-link>
+                  <router-link :to='{path:"/plate/commodity",query:{id:msg.id}}' target='_blank'>{{msg.title}}</router-link>
                 </div>
                 <div class="thanks-msg-price">
-                  <span>￥{{msg.price1}}</span>
-                  <span>￥{{msg.price2}}</span>
+                  <span>￥{{msg.pricel}}</span>
+                  <span>￥{{msg.priceh}}</span>
                 </div>
               </div>
             </li>
@@ -214,7 +214,7 @@
             <li>
               <router-link to='/plate/overview'>
                 <div class="immortal-left-img">
-                  <img src="@/assets/immortal.jpeg" alt="">
+                  <img src="/static/immortal.jpeg" alt="">
                 </div>
                 <div class="immortal-to">
                   <div class="immortal-to-title">永生花专区>></div>
@@ -223,17 +223,17 @@
             </li>
             <li v-for='msg in immortalmsg'>
               <div class="immortal-img">
-                <router-link :to='{path:"/plate/commodity",query:{id:msg.id}}'>
+                <router-link :to='{path:"/plate/commodity",query:{id:msg.id}}' target='_blank'>
                   <img :src="msg.src" alt="">
                 </router-link>
               </div>
               <div class="immortal-msg">
                 <div class="immortal-msg-title">
-                  <router-link :to='{path:"/plate/commodity",query:{id:msg.id}}'>{{msg.title}}</router-link>
+                  <router-link :to='{path:"/plate/commodity",query:{id:msg.id}}' target='_blank'>{{msg.title}}</router-link>
                 </div>
                 <div class="immortal-msg-price">
-                  <span>￥{{msg.price1}}</span>
-                  <span>￥{{msg.price2}}</span>
+                  <span>￥{{msg.pricel}}</span>
+                  <span>￥{{msg.priceh}}</span>
                 </div>
               </div>
             </li>
@@ -250,261 +250,261 @@
       return {
         items:[{
           id:'00',
-          src:require('@/assets/carousel-1.jpg'),
+          src:'/static/carousel-1.jpg',
           href:'/plate/overview'
         },{
           id:'01',
-          src:require('@/assets/carousel-2.jpg'),
+          src:'/static/carousel-2.jpg',
           href:'/plate/overview'
         },{
           id:'02',
-          src:require('@/assets/carousel-3.jpg'),
+          src:'/static/carousel-3.jpg',
           href:'/plate/overview'
         }],
 
         hotmsg:[{
           id:'500',
-          src:require('@/assets/immortal-1.jpg'),
+          src:'/static/immortal-1.jpg',
           hotmsghead:'特惠',
           title:' 桃心玻璃罩 永生花 礼盒',
-          price1:'176',
-          price2:'235',
-          // src0:require('@/assets/immortal-1/500.jpg'),
-          // src1:require('@/assets/immortal-1/500-1.jpg'),
-          // src2:require('@/assets/immortal-1/500-2.jpg'),
+          pricel:'176',
+          priceh:'235',
+          // src0:'/static/immortal-1/500.jpg',
+          // src1:'/static/immortal-1/500-1.jpg',
+          // src2:'/static/immortal-1/500-2.jpg',
           // material:'永生花',
           // language:'永生花花语',
           // packing:'内层白色雾面纸，外层牛皮纸,咖啡色花结'
         },{
           id:'302',
-          src:require('@/assets/love-3.jpg'),
+          src:'/static/love-3.jpg',
           hotmsghead:'限时购',
           title:'致美丽的你 红玫瑰',
-          price1:'138',
-          price2:'191',
-          // src0:require('@/assets/love-3/302.jpg'),
-          // src1:require('@/assets/love-3/302-1.jpg'),
-          // src2:require('@/assets/love-3/302-2.jpg'),
+          pricel:'138',
+          priceh:'191',
+          // src0:'/static/love-3/302.jpg',
+          // src1:'/static/love-3/302-1.jpg',
+          // src2:'/static/love-3/302-2.jpg',
           // material:'红玫瑰11枝，粉色(或者紫色）勿忘我0.3扎，栀子叶8枝',
           // language:'一心一意我只属于你、一生一世只爱你一个、两个人永远相爱，永不分离。纵然途中万般风景，我的眼里只有你！很爱很爱你，想把你捧在手心，放在心里',
           // packing:'内层白色雾面纸，外层牛皮纸,咖啡色花结',
         },{
           id:'405',
-          src:require('@/assets/thanks-6.jpg'),
+          src:'/static/thanks-6.jpg',
           hotmsghead:'满折',
           title:'温馨问候',
-          price1:'285',
-          price2:'389',
-          // src0:require('@/assets/thanks-6/405.jpg'),
-          // src1:require('@/assets/thanks-6/405-1.jpg'),
-          // src2:require('@/assets/thanks-6/405-2.jpg')
+          pricel:'285',
+          priceh:'389',
+          // src0:'/static/thanks-6/405.jpg',
+          // src1:'/static/thanks-6/405-1.jpg',
+          // src2:'/static/thanks-6/405-2.jpg'
         },{
           id:'501',
-          src:require('@/assets/immortal-2.jpg'),
+          src:'/static/immortal-2.jpg',
           hotmsghead:'满减',
           title:'Be My Love',
-          price1:'398',
-          price2:'598',
-          // src0:require('@/assets/immortal-2/501.jpg'),
-          // src1:require('@/assets/immortal-2/501-1.jpg'),
-          // src2:require('@/assets/immortal-2/501-2.jpg')
+          pricel:'398',
+          priceh:'598',
+          // src0:'/static/immortal-2/501.jpg',
+          // src1:'/static/immortal-2/501-1.jpg',
+          // src2:'/static/immortal-2/501-2.jpg'
         },{
           id:'400',
-          src:require('@/assets/thanks-1.jpg'),
+          src:'/static/thanks-1.jpg',
           hotmsghead:'满减',
           title:'母爱 康乃馨',
-          price1:'175',
-          price2:'228',
-          // src0:require('@/assets/thanks-1/400.jpg'),
-          // src1:require('@/assets/thanks-1/400-1.jpg'),
-          // src2:require('@/assets/thanks-1/400-2.jpg')
+          pricel:'175',
+          priceh:'228',
+          // src0:'/static/thanks-1/400.jpg',
+          // src1:'/static/thanks-1/400-1.jpg',
+          // src2:'/static/thanks-1/400-2.jpg'
         }],
 
         timelimit:[{
           id:'20',
-          src:require('@/assets/time-1.jpg'),
+          src:'/static/time-1.jpg',
           timelimithead:'限时购',
           title:'绿野仙踪 永生花 鲜花礼盒',
-          price1:'499',
-          price2:'520',
+          pricel:'469',
+          priceh:'499',
         },{
           id:'506',
-          src:require('@/assets/immortal-7.jpg'),
+          src:'/static/immortal-7.jpg',
           timelimithead:'限时购',
           title:'永生花 玻璃罩 礼盒',
-          price1:'338',
-          price2:'399',
+          pricel:'338',
+          priceh:'399',
         },{
           id:'308',
-          src:require('@/assets/love-9.jpg'),
+          src:'/static/love-9.jpg',
           timelimithead:'满折',
           title:'恋恋情深 香槟玫瑰',
-          price1:'199',
-          price2:'255',
+          pricel:'199',
+          priceh:'255',
         },{
           id:'401',
-          src:require('@/assets/thanks-2.jpg'),
+          src:'/static/thanks-2.jpg',
           timelimithead:'满减',
           title:'天使之祈',
-          price1:'198',
-          price2:'252',
+          pricel:'198',
+          priceh:'252',
         },{
           id:'309',
-          src:require('@/assets/love-10.jpg'),
+          src:'/static/love-10.jpg',
           timelimithead:'满减',
           title:'甜美公主',
-          price1:'376',
-          price2:'485',
+          pricel:'376',
+          priceh:'485',
         }],
 
         lovemsg:[{
           id:'300',
-          src:require('@/assets/love-1.jpg'),
+          src:'/static/love-1.jpg',
           title:'一心一意',
-          price1:'138',
-          price2:'189',
+          pricel:'138',
+          priceh:'189',
         },{
           id:'301',
-          src:require('@/assets/love-2.jpg'),
+          src:'/static/love-2.jpg',
           title:'爱你如初',
-          price1:'529',
-          price2:'636',
+          pricel:'529',
+          priceh:'636',
         },{
           id:'302',
-          src:require('@/assets/love-3.jpg'),
+          src:'/static/love-3.jpg',
           title:'致美丽的你',
-          price1:'138',
-          price2:'191',
+          pricel:'138',
+          priceh:'191',
         },{
           id:'303',
-          src:require('@/assets/love-4.jpg'),
+          src:'/static/love-4.jpg',
           title:'青青子衿',
-          price1:'280',
-          price2:'359',
+          pricel:'280',
+          priceh:'359',
         },{
           id:'304',
-          src:require('@/assets/love-5.jpg'),
+          src:'/static/love-5.jpg',
           title:'月光女神',
-          price1:'232',
-          price2:'305',
+          pricel:'232',
+          priceh:'305',
         },{
           id:'305',
-          src:require('@/assets/love-6.jpg'),
+          src:'/static/love-6.jpg',
           title:'真爱如初',
-          price1:'202',
-          price2:'265',
+          pricel:'202',
+          priceh:'265',
         },{
           id:'306',
-          src:require('@/assets/love-7.jpg'),
+          src:'/static/love-7.jpg',
           title:'爱的小确幸',
-          price1:'309',
-          price2:'395',
+          pricel:'309',
+          priceh:'395',
         },{
           id:'307',
-          src:require('@/assets/love-8.jpg'),
+          src:'/static/love-8.jpg',
           title:'致青春',
-          price1:'229',
-          price2:'295',
+          pricel:'229',
+          priceh:'295',
         }],
 
         thanksmsg:[{
           id:'400',
-          src:require('@/assets/thanks-1.jpg'),
+          src:'/static/thanks-1.jpg',
           title:'母爱',
-          price1:'175',
-          price2:'228',
+          pricel:'175',
+          priceh:'228',
         },{
           id:'401',
-          src:require('@/assets/thanks-2.jpg'),
+          src:'/static/thanks-2.jpg',
           title:'天使之祈',
-          price1:'198',
-          price2:'252',
+          pricel:'198',
+          priceh:'252',
         },{
           id:'402',
-          src:require('@/assets/thanks-3.jpg'),
+          src:'/static/thanks-3.jpg',
           title:'向日葵之歌',
-          price1:'189',
-          price2:'242',
+          pricel:'189',
+          priceh:'242',
         },{
           id:'403',
-          src:require('@/assets/thanks-4.jpg'),
+          src:'/static/thanks-4.jpg',
           title:'爱的思念',
-          price1:'196',
-          price2:'251',
+          pricel:'196',
+          priceh:'251',
         },{
           id:'404',
-          src:require('@/assets/thanks-5.jpg'),
+          src:'/static/thanks-5.jpg',
           title:'留住好时光',
-          price1:'238',
-          price2:'306',
+          pricel:'238',
+          priceh:'306',
         },{
           id:'405',
-          src:require('@/assets/thanks-6.jpg'),
+          src:'/static/thanks-6.jpg',
           title:'温馨问候',
-          price1:'285',
-          price2:'389',
+          pricel:'285',
+          priceh:'389',
         },{
           id:'406',
-          src:require('@/assets/thanks-7.jpg'),
+          src:'/static/thanks-7.jpg',
           title:'漾恬假期',
-          price1:'238',
-          price2:'305',
+          pricel:'238',
+          priceh:'305',
         },{
           id:'407',
-          src:require('@/assets/thanks-8.jpg'),
+          src:'/static/thanks-8.jpg',
           title:'妈妈的爱',
-          price1:'159',
-          price2:'202',
+          pricel:'159',
+          priceh:'202',
         }],
 
         immortalmsg:[{
           id:'500',
-          src:require('@/assets/immortal-1.jpg'),
-          title:' 桃心玻璃罩 永生花 礼盒',
-          price1:'176',
-          price2:'235',
+          src:'/static/immortal-1.jpg',
+          title:'桃心玻璃罩 永生花 礼盒',
+          pricel:'176',
+          priceh:'235',
         },{
           id:'501',
-          src:require('@/assets/immortal-2.jpg'),
+          src:'/static/immortal-2.jpg',
           title:'Be My Love',
-          price1:'398',
-          price2:'598',
+          pricel:'398',
+          priceh:'598',
         },{
           id:'502',
-          src:require('@/assets/immortal-3.jpg'),
+          src:'/static/immortal-3.jpg',
           title:'看得到的美好',
-          price1:'399',
-          price2:'499',
+          pricel:'399',
+          priceh:'499',
         },{
           id:'503',
-          src:require('@/assets/immortal-4.jpg'),
+          src:'/static/immortal-4.jpg',
           title:'一生一世',
-          price1:'198',
-          price2:'259',
+          pricel:'198',
+          priceh:'259',
         },{
           id:'504',
-          src:require('@/assets/immortal-5.jpg'),
+          src:'/static/immortal-5.jpg',
           title:'一路有你',
-          price1:'338',
-          price2:'569',
+          pricel:'338',
+          priceh:'569',
         },{
           id:'505',
-          src:require('@/assets/immortal-6.jpg'),
+          src:'/static/immortal-6.jpg',
           title:'海洋之恋',
-          price1:'999',
-          price2:'1399',
+          pricel:'999',
+          priceh:'1399',
         },{
           id:'506',
-          src:require('@/assets/immortal-7.jpg'),
+          src:'/static/immortal-7.jpg',
           title:'永生花 玻璃罩 礼盒',
-          price1:'338',
-          price2:'399',
+          pricel:'338',
+          priceh:'399',
         },{
           id:'507',
-          src:require('@/assets/immortal-8.jpg'),
+          src:'/static/immortal-8.jpg',
           title:'十二星座红色永生玫瑰',
-          price1:'268',
-          price2:'328',
+          pricel:'268',
+          priceh:'328',
         }],
       }
     },

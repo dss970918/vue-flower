@@ -35,10 +35,10 @@
     				</div>
     			</div>
     			<div class="commodity-price">
-    				<div class="commodity-price1">市场价：￥{{commodity.price1}}</div>
+    				<div class="commodity-price1">市场价：￥{{commodity.priceh}}</div>
     				<div class="commodity-price2">
 							<span>现价：</span>
-							<span>￥{{commodity.price2}}</span>
+							<span>￥{{commodity.pricel}}</span>
     				</div>
     				<div class="commodity-buy">
     					<div class="number">
@@ -61,24 +61,23 @@
 </template>
 
 <script>
+	import axios from '@/http/axios'
 	export default {
 		data(){
 			return {
 				commodity:{
-					//id:'',
-					//name:'',
-					//material:'鲜花材料',
-					//language:'鲜花花语',
-					//packing:'鲜花包装',
-					//price1:'',
-					//price2:'',
-					/*src:[{
-						src:require(''),
-						src1:require(''),
-						src2:require('')
-					}]*/
-					
+					// id:'',
+					// name:'',
+					// material:'鲜花材料',
+					// language:'鲜花花语',
+					// packing:'鲜花包装',
+					// priceh:'',
+					// pricel:'',
+					// src1:
+					// src2:
+					// src3:
 				},
+				src:[{},{},{}],
 				number:'1'
 			}
 		},
@@ -94,6 +93,7 @@
 		
 		created(){
 			this.getcommodityid();
+			this.findCommodityById();
 		},
 		
 		methods:{
@@ -125,6 +125,26 @@
 			addshoppingcart(){
 				// 加入购物车
 				this.$message.success('加入购物车成功')
+			},
+			findCommodityById(){
+				axios.get('/plate/commodity?id='+this.commodity.id)
+				.then(({data:results})=>{
+					this.commodity=results[0];//这个没有src[]
+					this.src=[{
+						src:this.commodity.src1
+					},{
+						src:this.commodity.src2
+					},{
+						src:this.commodity.src3
+					}]
+					this.commodity.src=this.src;
+					// console.log(this.commodity);
+					// console.log(this.src);
+					this.$message.success('查询成功')
+				})
+				.catch(()=>{
+					this.$message.warning('查询失败')
+				})
 			},
 			getcommodityid(){
 				// 页面跳转时get商品id
