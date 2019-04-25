@@ -42,7 +42,8 @@
 						</ul>
 					</div>
 
-					{{commodity}}
+					{{commodity}}<br>
+					{{arr}}
 
 					<div class="pay-pay">
 						<div class="pay-total"><span>总计：</span><span>￥{{total_price}}</span></div>
@@ -78,15 +79,15 @@
 		  <div class="pay-way">
 		  	<el-radio-group v-model="radio">
 				  <el-radio :label="1">
-						<img src="static/a-pay/支付宝.png">
+						<img src="/static/a-pay/支付宝.png">
 						<span>支付宝</span>
 				  </el-radio>
 				  <el-radio :label="2">
-						<img src="static/a-pay/微信.png">
+						<img src="/static/a-pay/微信.png">
 						<span>微信支付</span>
 				  </el-radio>
 				  <el-radio :label="3">
-						<img src="static/a-pay/银行卡.png">
+						<img src="/static/a-pay/银行卡.png">
 						<span>银行卡</span>
 				  </el-radio>
 				</el-radio-group>
@@ -111,6 +112,7 @@
 </template>
 
 <script>
+	import axios from '@/http/axios'
 	export default {
 		data(){
 			return {
@@ -124,19 +126,21 @@
 					}
 				},
 				// 商品信息
-				commodity:[/*{
-					//id:'300',
+				/*commodity:[{
+					id:'300',
 					name:'一心一意',
 					pricel:'138',
 					src:'/static/love-1/9010011.jpg',
 					number:'2'
-				}*//*,{
-					//id:'300',
-					//name:'一心3意',
-					//pricel:'28',
-					//src:'/static/love-1/9010011.jpg',
-					//number:'4'
-				}*/],
+				},{
+					id:'300',
+					name:'一心3意',
+					pricel:'28',
+					src:'/static/love-1/9010011.jpg',
+					number:'4'
+				}],*/
+				commodity:[],
+				
 				// 去支付模态框
 				pay:{
 					visible:false
@@ -148,7 +152,8 @@
 				password:'',
 				rules:{
 					
-				}
+				},
+				arr:[]
 			}
 		},
 		computed:{
@@ -163,33 +168,45 @@
 		},
 		created(){
 			this.getcommodityid();
+			this.findCommodityByIds();
 		},
 		methods:{
-			toModifyMsg(){
-				// 修改收货信息
+			findCommodityByIds(){	// 根据id查找商品
+				this.commodity.forEach(item=>{
+					this.arr.push(item.id)
+				})
+				axios.get('/plate/pay?id='+this.arr)
+				.then(({data:results})=>{
+					
+					this.$message.success('查询成功')
+				})
+				.catch(()=>{
+					this.$message.warning('查询失败')
+				})
+				
+				
+			},
+			
+			toModifyMsg(){	// 修改收货信息
 				this.receive.visible=true;
 			},
-			closePDialog(){
-				// 取消->关闭修改收件人信息的模态框
+			closePDialog(){	// 取消->关闭修改收件人信息的模态框
 				this.receive.visible=false;
 			},
-			saveOrUpdateReceive(){
-				// 保存->保存新收货信息
+			saveOrUpdateReceive(){	// 保存->保存新收货信息
 
 				// 传参数到收货信息，并刷新页面
 				this.receive.visible=false;
 			},
-			gopay(){
-				// 点击去付款->模态框
+			
+			gopay(){	// 点击去付款->模态框
 				this.pay.visible=true;
 			},
-			closePayDialog(){
-				// 关闭选择支付方式模态框
+			closePayDialog(){	// 关闭选择支付方式模态框
 				this.pay.visible=false;
 				this.radio='';// 清除支付单选项
 			},
-			topaynow(){
-				// 去付款->确定
+			topaynow(){	// 去付款->确定
 				if(this.radio==''){
 					this.$message.warning('请选择支付方式')
 				}else{
@@ -197,13 +214,11 @@
 					this.paynow.visible=true;
 				}
 			},
-			closePaypasswdDialog(){
-				// 取消->关闭输入支付密码的模态框
+			closePaypasswdDialog(){	// 取消->关闭输入支付密码的模态框
 				this.paynow.visible=false;
 				this.password=''
 			},
-			payed(){
-				// 输入支付密码->确定
+			payed(){	// 输入支付密码->确定
 				this.$message({
 					message:'支付成功！',
 					type:'success'
@@ -214,9 +229,7 @@
 				// 传数据到购物车，清除掉支付成功的商品
 				// 传数据到我的订单，添加支付成功的商品
 			},
-			getcommodityid(){
-				// 页面跳转时get商品id commodity->pay
-				
+			getcommodityid(){	// 页面跳转时get商品id commodity->pay
 				let id=this.$route.query.id;	// id是数组
 				//console.log(id)
 				if(Array.isArray(id)===true){
@@ -226,8 +239,6 @@
 						this.commodity.push(val);	// 将{id:'302',number:2}push到commodity数组中
 					}
 				}
-				
-				
 			}
 		}
 	}

@@ -41,7 +41,6 @@
         <router-link to='/plate/overview'>鲜花</router-link>
         <router-link to='/plate/overview'>永生花</router-link>
         <router-link to='/plate/overview'>玫瑰花</router-link>
-        <router-link to='/plate/overview'>百合花</router-link>
         <router-link to='/plate/overview'>绿植盆栽</router-link>
         <router-link to='/plate/overview'>七夕情人节鲜花</router-link>
       </div>

@@ -6,7 +6,6 @@
         <router-link to='/plate/overview'>鲜花</router-link>
         <router-link to='/plate/overview'>永生花</router-link>
         <router-link to='/plate/overview'>玫瑰花</router-link>
-        <router-link to='/plate/overview'>百合花</router-link>
         <router-link to='/plate/overview'>绿植盆栽</router-link>
         <router-link to='/plate/overview'>七夕情人节鲜花</router-link>
       </div>
@@ -82,14 +81,14 @@
         <ul>
           <li v-for='msg in hotmsg' :key='msg.id'>
             <div class="hot-img">
-              <router-link :to='{path:"/plate/commodity",query:{id:msg.id}}' target='_blank'>
+              <router-link :to='{path:"/plate/commodity",query:{id:msg.id}}'>
                 <img :src="msg.src" alt="">
               </router-link>
             </div>
             <div class="hot-msg">
               <div class="hot-msg-head"><span>{{msg.hotmsghead}}</span></div>
               <div class="hot-msg-title">
-                <router-link :to='{path:"/plate/commodity",query:{id:msg.id}}' target='_blank'>{{msg.title}}</router-link>
+                <router-link :to='{path:"/plate/commodity",query:{id:msg.id}}'>{{msg.title}}</router-link>
               </div>
               <p class="hot-msg-price">
                 <span>￥{{msg.pricel}}</span>
@@ -111,14 +110,14 @@
         <ul>
           <li v-for='msg in timelimit'>
             <div class="time-img">
-              <router-link :to="{path:'/plate/commodity',query:{id:msg.id}}" target='_blank'>
+              <router-link :to="{path:'/plate/commodity',query:{id:msg.id}}">
                 <img :src="msg.src" alt="">
               </router-link>
             </div>
             <div class="timelimit">
               <div class="timelimit-head"><span>{{msg.timelimithead}}</span></div>
               <div class="timelimit-title">
-                <router-link :to='{path:"/plate/commodity",query:{id:msg.id}}' target='_blank'>{{msg.title}}</router-link>
+                <router-link :to='{path:"/plate/commodity",query:{id:msg.id}}'>{{msg.title}}</router-link>
               </div>
               <p class="timelimit-price">
                 <span>￥{{msg.pricel}}</span>
@@ -140,7 +139,7 @@
         <div class="love-content">
           <ul>
             <li>
-              <router-link to='/plate/overview'>
+              <router-link :to="{path:'/plate/overview',query:{type:3}}">
                 <div class="love-left-img">
                   <img src="/static/love.jpg" alt="">
                 </div>
@@ -151,13 +150,13 @@
             </li>
             <li v-for='msg in lovemsg'>
               <div class="love-img">
-                <router-link :to="{path:'/plate/commodity',query:{id:msg.id}}" target='_blank'>
+                <router-link :to="{path:'/plate/commodity',query:{id:msg.id}}">
                   <img :src="msg.src" alt="">
                 </router-link>
               </div>
               <div class="love-msg">
                 <div class="love-msg-title">
-                  <router-link :to='{path:"/plate/commodity",query:{id:msg.id}}' target='_blank'>{{msg.title}}</router-link>
+                  <router-link :to='{path:"/plate/commodity",query:{id:msg.id}}'>{{msg.title}}</router-link>
                 </div>
                 <div class="love-msg-price">
                   <span>￥{{msg.pricel}}</span>
@@ -176,7 +175,7 @@
         <div class="thanks-content">
           <ul>
             <li>
-              <router-link to='/plate/overview'>
+              <router-link :to="{path:'/plate/overview',query:{type:4}}">
                 <div class="thanks-left-img">
                   <img src="/static/thanks.jpeg" alt="">
                 </div>
@@ -187,13 +186,13 @@
             </li>
             <li v-for='msg in thanksmsg'>
               <div class="thanks-img">
-                <router-link :to='{path:"/plate/commodity",query:{id:msg.id}}' target='_blank'>
+                <router-link :to='{path:"/plate/commodity",query:{id:msg.id}}'>
                   <img :src="msg.src" alt="">
                 </router-link>
               </div>
               <div class="thanks-msg">
                 <div class="thanks-msg-title">
-                  <router-link :to='{path:"/plate/commodity",query:{id:msg.id}}' target='_blank'>{{msg.title}}</router-link>
+                  <router-link :to='{path:"/plate/commodity",query:{id:msg.id}}'>{{msg.title}}</router-link>
                 </div>
                 <div class="thanks-msg-price">
                   <span>￥{{msg.pricel}}</span>
@@ -212,7 +211,7 @@
         <div class="immortal-content">
           <ul>
             <li>
-              <router-link to='/plate/overview'>
+              <router-link :to="{path:'/plate/overview',query:{type:5}}">
                 <div class="immortal-left-img">
                   <img src="/static/immortal.jpeg" alt="">
                 </div>
@@ -223,13 +222,13 @@
             </li>
             <li v-for='msg in immortalmsg'>
               <div class="immortal-img">
-                <router-link :to='{path:"/plate/commodity",query:{id:msg.id}}' target='_blank'>
+                <router-link :to='{path:"/plate/commodity",query:{id:msg.id}}'>
                   <img :src="msg.src" alt="">
                 </router-link>
               </div>
               <div class="immortal-msg">
                 <div class="immortal-msg-title">
-                  <router-link :to='{path:"/plate/commodity",query:{id:msg.id}}' target='_blank'>{{msg.title}}</router-link>
+                  <router-link :to='{path:"/plate/commodity",query:{id:msg.id}}'>{{msg.title}}</router-link>
                 </div>
                 <div class="immortal-msg-price">
                   <span>￥{{msg.pricel}}</span>
@@ -251,15 +250,15 @@
         items:[{
           id:'00',
           src:'/static/carousel-1.jpg',
-          href:'/plate/overview'
+          href:'/plate/overview?type=3'
         },{
           id:'01',
           src:'/static/carousel-2.jpg',
-          href:'/plate/overview'
+          href:'/plate/overview?type=5'
         },{
           id:'02',
           src:'/static/carousel-3.jpg',
-          href:'/plate/overview'
+          href:'/plate/overview?type=6'
         }],
 
         hotmsg:[{

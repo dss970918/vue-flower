@@ -11,7 +11,7 @@
             </div>
             <div class="plate-msg">
               <div class="plate-msg-title">
-                <router-link :to='{path:"/plate/commodity",query:{id:msg.id}}'>{{msg.title}}</router-link>
+                <router-link :to='{path:"/plate/commodity",query:{id:msg.id}}'>{{msg.name}}</router-link>
               </div>
               <div class="plate-msg-pricel">
                 <span>￥{{msg.pricel}}</span>
@@ -25,54 +25,73 @@
 </template>
 
 <script>
+  import axios from '@/http/axios'
   export default {
     data(){
       return {
-        platemsg:[{
+        /*platemsg:[{
           id:'300',
           src:'/static/love-1.jpg',
-          title:'一心一意',
+          name:'一心一意',
           pricel:'138'
         },{
           id:'301',
           src:'/static/love-2.jpg',
-          title:'爱你如初',
+          name:'爱你如初',
           pricel:'529'
         },{
           id:'302',
           src:'/static/love-3.jpg',
-          title:'致美丽的你',
+          name:'致美丽的你',
           pricel:'138'
         },{
           id:'303',
           src:'/static/love-4.jpg',
-          title:'青青子衿',
+          name:'青青子衿',
           pricel:'280'
         },{
           id:'304',
           src:'/static/love-5.jpg',
-          title:'月光女神',
+          name:'月光女神',
           pricel:'232'
         },{
           id:'305',
           src:'/static/love-6.jpg',
-          title:'真爱如初',
+          name:'真爱如初',
           pricel:'202'
         },{
           id:'306',
           src:'/static/love-7.jpg',
-          title:'爱的小确幸',
+          name:'爱的小确幸',
           pricel:'309'
         },{
           id:'307',
           src:'/static/love-8.jpg',
-          title:'致青春',
+          name:'致青春',
           pricel:'229'
-        }]
+        }],*/
+        platemsg:[],
+        type:''
       }
     },
+    created(){
+      this.getcommoditytype();
+      this.findCommodityByType();
+    },
     methods:{
-
+      getcommoditytype(){
+        // 根据路由获取query中的type
+        this.type=this.$route.query.type;
+      },
+      findCommodityByType(){
+        // 根据type查询数据
+        axios.get('/commodity/findCommodityByType?type='+this.type)
+        .then(({data:results})=>{
+          // console.log({data:results})
+          this.platemsg=results;
+          this.$message.success('查询成功')
+        })
+      }
     }
   }
 </script>

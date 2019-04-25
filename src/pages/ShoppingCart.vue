@@ -149,7 +149,7 @@
 					this.multipleSelection.forEach(item=>{
 						arr.push({id:item.id,number:item.number})
 					});
-					//console.log(arr);
+					console.log(arr);
 					this.$router.push({
 						path:'/plate/pay',
 						query:{

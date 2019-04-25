@@ -50,7 +50,7 @@
 								<el-input-number v-model="number" @change='handleChange' :precision="0" :min="1" :max="99"></el-input-number>
 
     					</div>
-    					<router-link :to="{path:'/plate/pay',query:{id:[{id:commodity.id,number:number}]}}" class="buy">立即购买</router-link>
+    					<a @click='buy' class="buy">立即购买</a>
     					<a class="addshoppingcart" @click='addshoppingcart'><i class="fa fa-shopping-cart"></i>加入购物车</a>
     				</div>
     			</div>
@@ -63,20 +63,22 @@
 <script>
 	import axios from '@/http/axios'
 	export default {
+		props:['username'],
 		data(){
 			return {
-				commodity:{
-					// id:'',
-					// name:'',
-					// material:'鲜花材料',
-					// language:'鲜花花语',
-					// packing:'鲜花包装',
-					// priceh:'',
-					// pricel:'',
-					// src1:
-					// src2:
-					// src3:
-				},
+				/*commodity:{
+					id:'',
+					name:'',
+					material:'鲜花材料',
+					language:'鲜花花语',
+					packing:'鲜花包装',
+					priceh:'',
+					pricel:'',
+					src1:
+					src2:
+					src3:
+				},*/
+				commodity:{},
 				src:[{},{},{}],
 				number:'1'
 			}
@@ -84,7 +86,6 @@
 		
 		watch:{
 			/*number:function(){
-				// console.log(this.number)
 				if(this.number>=99){this.number=99}
 				if(this.number<1){this.number=1}
 			},*/
@@ -97,17 +98,7 @@
 		},
 		
 		methods:{
-			/*minus(){
-				if(this.number>1&&this.number<=99){
-					this.number--;
-				}
-			},
-			plus(){
-				if(this.number>=1&&this.number<99){
-					this.number++;
-				}
-			},
-			BlurText(e){
+			/*BlurText(e){
 				// 数量限制为正整数
 				let boolean=new RegExp('^[1-9][0-9]*$').test(e.target.value);
 				if(!boolean){
@@ -116,18 +107,12 @@
 					this.$refs.number.focus();
 				}
 			},*/
-			handleChange(value){
-				let boolean=new RegExp('^[1-9][0-9]*$').test(value);
-				if(!boolean){
-					this.$message.warning('请输入正整数');
-				}
+			getcommodityid(){	// 页面跳转时get商品id
+				let id=this.$route.query.id;
+				this.commodity.id=id
 			},
-			addshoppingcart(){
-				// 加入购物车
-				this.$message.success('加入购物车成功')
-			},
-			findCommodityById(){
-				axios.get('/plate/commodity?id='+this.commodity.id)
+			findCommodityById(){	// 根据id查找商品
+				axios.get('/commodity/findCommodityById?id='+this.commodity.id)
 				.then(({data:results})=>{
 					this.commodity=results[0];//这个没有src[]
 					this.src=[{
@@ -146,12 +131,33 @@
 					this.$message.warning('查询失败')
 				})
 			},
-			getcommodityid(){
-				// 页面跳转时get商品id
-				/*let commoditymsg=this.$route.query;
-				this.commodity=Object.assign(this.commodity,commoditymsg)*/
-				let id=this.$route.query.id;
-				this.commodity.id=id
+			handleChange(value){
+				let boolean=new RegExp('^[1-9][0-9]*$').test(value);
+				if(!boolean){
+					this.$message.warning('请输入正整数');
+				}
+			},
+			addshoppingcart(){	// 加入购物车
+				if(this.$parent.$parent.username==undefined||this.$parent.$parent.username==''){
+					this.$message.error('请先登录')
+				}else{
+					// 此处加入购物车
+					this.$message.success('加入购物车成功')
+				}
+			},
+			buy(){
+				// console.log(this.commodity)
+				if(this.$parent.$parent.username==undefined||this.$parent.$parent.username==''){
+					this.$message.error('请先登录')
+				}else{
+					// 此处跳转到pay页
+					this.$router.push({
+						path:'/plate/pay',
+						query:{
+							id:[{id:this.commodity.id,number:this.number}]
+						}
+					})
+				}
 			}
 		}
 	}

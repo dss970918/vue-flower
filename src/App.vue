@@ -6,9 +6,10 @@
 					<li>
 						<el-dropdown @command="handleCommand" trigger='click'>
 				      <span @click='login($event)' class="el-dropdown-link">
-				        {{user.username?user.username:'你好，请登录'}}
+				        {{username?username:'你好，请登录'}}
 				      </span>
 				      <el-dropdown-menu slot="dropdown" v-if='dropdownMenu'>
+				        <el-dropdown-item command='showMsg'>个人信息</el-dropdown-item>
 				        <el-dropdown-item command='logout'>退出登录</el-dropdown-item>
 				      </el-dropdown-menu>
 				    </el-dropdown>
@@ -136,7 +137,8 @@
     		</div>
     	</div>
     </div>
-
+		
+		<!-- 登录模态框 -->
     <el-dialog class='loginDialog' title="登录" :visible.sync="loginForm.visible" center>
 		  <el-form :model="loginForm.form" ref='loginDialog' label-position='left'>
 		    <el-form-item label="用户名" label-width="70px" prop='username'>
@@ -146,32 +148,114 @@
 		      <el-input v-model="loginForm.form.password" auto-complete="off" show-password></el-input>
 		    </el-form-item>
 		  </el-form>
+		  {{loginForm.form}}
 		  <div slot="footer" class="dialog-footer">
 		    <el-button @click="closeLoginForm">取 消</el-button>
 		    <el-button @click="toLogin">确 定</el-button>
 		  </div>
 		</el-dialog>
 
+		<!-- 个人信息模态框 -->
+		<el-dialog class='usermsgDialog' title="个人信息" :visible.sync="usermsg.visible" center>
+			<!-- 修改信息 -->
+			<el-dialog
+	      width="30%"
+	      title="修改信息"
+	      :visible.sync="modifymsg.visible"
+	      append-to-body>
+				<el-form :model="modifymsg.form" ref='userMsgForm' :rules='modify_usermsg' status-icon label-position='left'>
+			    <el-form-item label="用户名" label-width="90px" prop='username'>
+			      <el-input v-model="modifymsg.form.username" auto-complete="off"></el-input>
+			    </el-form-item>
+			    <el-form-item label="新密码" label-width="90px" prop='newpassword'>
+			      <el-input v-model="newpassword" auto-complete="off" show-password></el-input>
+			    </el-form-item>
+			    <el-form-item label="真实姓名" label-width="90px" prop='nickname'>
+			      <el-input v-model="modifymsg.form.nickname" auto-complete="off"></el-input>
+			    </el-form-item>
+			    <el-form-item label="联系电话" label-width="90px" prop='telephone'>
+			      <el-input v-model="modifymsg.form.telephone" auto-complete="off"></el-input>
+			    </el-form-item>
+			    <el-form-item label="收货地址" label-width="90px" prop='address'>
+			      <el-input v-model="modifymsg.form.address" auto-complete="off"></el-input>
+			    </el-form-item>
+			  </el-form>
+			  {{modifymsg.form}}
+			  <div slot="footer" class="dialog-footer">
+			    <el-button @click="">取 消</el-button>
+			    <el-button @click="">确 定</el-button>
+			  </div>
+	    </el-dialog>
+			
+			<!-- 信息 -->
+		  <el-form :model="usermsg.form" ref='loginDialog' label-position='left'>
+		    <el-form-item label="用户名" label-width="100px">{{usermsg.form.username}}</el-form-item>
+		    <el-form-item label="真实姓名" label-width="100px">{{usermsg.form.nickname}}</el-form-item>
+		    <el-form-item label="联系电话" label-width="100px">{{usermsg.form.telephone}}</el-form-item>
+		    <el-form-item label="收货地址" label-width="100px">{{usermsg.form.address}}</el-form-item>
+		  </el-form>
+		  <div slot="footer" class="dialog-footer">
+		    <el-button @click="closeUsermsg">确 定</el-button>
+		    <el-button @click="toModifyMsg">修改信息</el-button>
+		  </div>
+		</el-dialog>
+		
+		<!-- 修改信息模态框 -->
+		
+
   </div>
 </template>
 
 <script>
+	import axios from '@/http/axios'
+	import commodity from './pages/plate/Commodity'
 	export default {
+		components:{
+			commodity
+		},
 		data(){
 			return {
 				currentRoute:'/',
 				input:'',
 				loginForm:{
 					visible:false,
-					form:{
+					form:{	// 登录表单的信息
 						username: '',
 	          password:''
 					}
 				},
-				user:{
-					username:''
+				usermsg:{
+					visible:false,
+					form:{	// 后台传过来的用户信息
+						
+					}
 				},
-				dropdownMenu:true
+				modifymsg:{
+					visible:false,	// 修改信息模态框的visible
+					form:{
+						
+					}
+				},
+				username:'',
+				newpassword:'',
+				dropdownMenu:true,
+				modify_usermsg:{	//修改信息的表单验证
+					username:[{
+						required:true,message:'请输入用户名',trigger:'blur'
+					}],
+					newpassword:[{
+						required:true,message:'请输入新密码',trigger:'blur'
+					}],
+					nickname:[{
+						required:true,message:'请输入真实姓名',trigger:'blur'
+					}],
+					telephone:[{
+						required:true,message:'请输入联系电话',trigger:'blur'
+					}],
+					address:[{
+						required:true,message:'请输入收货地址',trigger:'blur'
+					}]
+				}
 				/*rules:{
 					username:[{
 						required:true,
@@ -201,7 +285,7 @@
 		methods:{
 			handleCommand(command){
         if(command=='logout'){
-        	this.user.username='';//这也只是暂时的
+        	this.username='';//这也只是暂时的
 
           /*axios.get('/logout')
           .then(()=>{
@@ -209,9 +293,11 @@
           })*/
         	this.$message.success('退出登录');
         }
+        if(command=='showMsg'){
+        	this.usermsg.visible=true;
+        }
       },
-			login(e){
-				// 点击你好请登录
+			login(e){	// 点击你好请登录
 				if(e.target.innerText=='你好，请登录'){
 					this.dropdownMenu=false;//不显示dropdown
 					this.loginForm.visible=true;
@@ -219,31 +305,42 @@
 					this.dropdownMenu=true;
 				}
 			},
-			closeLoginForm(){
-				// 关闭登录模态框
+			closeLoginForm(){	// 关闭登录模态框
 				this.loginForm.visible=false;
 				this.loginForm.form={};
 			},
-			toLogin(){
-				// 登录校验
+			closeUsermsg(){	// 关闭用户信息模态框
+				this.usermsg.visible=false;
+			},
+			toLogin(){	// 登录校验
 				this.$refs.loginDialog.validate((valid)=>{
 					if(valid){
 						if(this.loginForm.form.username==''||this.loginForm.form.password==''){
 							this.$message.warning('请输入用户名或密码')
 						}else{
-							this.$notify.info({message:'都写了可以进行验证了~'});
 							// 此处进行验证
-							
-
-							// 成功后将user.username=loginForm.form.username
-							this.user.username=this.loginForm.form.username;
-
-							// 关闭login模态框
-							this.loginForm.visible=false;
-							this.$message.success('登录成功');
+							axios.get('/user/findUser?username='+this.loginForm.form.username)
+							.then(({data:results})=>{
+								console.log(results)
+								if(results.length==0){
+									this.$message.warning('请输入正确的用户名或密码')
+								}else if(results[0].username!==this.loginForm.form.username || results[0].password!==this.loginForm.form.password){
+									this.$message.warning('请输入正确的用户名或密码')
+								}else{
+									this.username=this.loginForm.form.username;
+									this.loginForm.visible=false;	// 关闭login模态框
+									this.$message.success('登录成功');
+									this.usermsg.form=results[0]
+									this.modifymsg.form=results[0]
+								}
+								
+							})
 						}
 					}
 				})
+			},
+			toModifyMsg(){	// 修改信息模态框
+				this.modifymsg.visible=true;
 			}
 		}
 	}
