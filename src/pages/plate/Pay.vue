@@ -5,9 +5,9 @@
     		<div class="pay-receive">
 					<div class="pay-title">收货信息</div>
 					<div class="pay-receive-msg">
-						<div class="receiver">
+						<div class="nickname">
 							<span>收件人：</span>
-							<span>{{receive.form.receiver}}</span>
+							<span>{{receive.form.nickname}}</span>
 						</div>
 						<div class="telephone">
 							<span>联系电话：</span>
@@ -31,19 +31,19 @@
 					</div>
 					<div class="pay-commodity-msg">
 						<ul>
-							<li v-for='commodity in commodity'>
-								<div class="commodity-img"><img :src="commodity.src"></div>
-								<div class="commodity-title"><span>{{commodity.name}}</span></div>
-								<div class="commodity-price">￥<span>{{commodity.pricel}}</span></div>
-								<div class="commodity-number"><span>{{commodity.number}}</span></div>
-								<div class="commodity-xiaoji">￥<span >{{commodity.number*commodity.pricel}}</span></div>
-								<div class="commodity-shifu"><span>￥{{commodity.number*commodity.pricel}}</span></div>
+							<li v-for='row in msg' :key='row.id'>
+								<div class="commodity-img"><img :src="row.src"></div>
+								<div class="commodity-title"><span>{{row.name}}</span></div>
+								<div class="commodity-price">￥<span>{{row.pricel}}</span></div>
+								<div class="commodity-number"><span>{{row.number}}</span></div>
+								<div class="commodity-xiaoji">￥<span >{{row.number*row.pricel}}</span></div>
+								<div class="commodity-shifu"><span>￥{{row.number*row.pricel}}</span></div>
 							</li>
 						</ul>
 					</div>
 
-					{{commodity}}<br>
-					{{arr}}
+					msg:{{msg}}<br>
+					order:{{order}}
 
 					<div class="pay-pay">
 						<div class="pay-total"><span>总计：</span><span>￥{{total_price}}</span></div>
@@ -56,19 +56,19 @@
 
 		<!-- 修改信息的模态框 -->
     <el-dialog title="收货地址" :visible.sync="receive.visible">
-		  <el-form :model="receive.form" label-position='left'>
-		    <el-form-item label="收件人" label-width='100px'>
-		      <el-input v-model="receive.form.receiver" autocomplete="off"></el-input>
+		  <el-form :model="receive.form" ref='modifyForm' :rules='modify_rules' label-position='left'>
+		    <el-form-item label="收件人" label-width='100px' prop='nickname'>
+		      <el-input v-model="receive.form.nickname" autocomplete="off"></el-input>
 		    </el-form-item>
-		    <el-form-item label="联系电话" label-width='100px'>
+		    <el-form-item label="联系电话" label-width='100px' prop='telephone'>
 		      <el-input v-model="receive.form.telephone" autocomplete="off"></el-input>
 		    </el-form-item>
-		    <el-form-item label="收货地址" label-width='100px'>
+		    <el-form-item label="收货地址" label-width='100px' prop='address'>
 		    	<el-input v-model="receive.form.address" autocomplete="off" placeholder='请填写详细地址'></el-input>
 		    </el-form-item>
 		  </el-form>
 		  <div slot="footer" class="dialog-footer">
-		    <el-button @click="closePDialog">取 消</el-button>
+		    <el-button @click="closePDialog">恢复默认</el-button>
 		    <el-button type="primary" @click="saveOrUpdateReceive">保 存</el-button>
 		  </div>
 		</el-dialog>
@@ -114,17 +114,19 @@
 <script>
 	import axios from '@/http/axios'
 	export default {
+		props:['usermsg'],
 		data(){
 			return {
 				// 收件人的信息
 				receive:{
 					visible:false,	//修改收货信息的模态框
 					form:{
-						receiver:'刘浩',
-						telephone:'18454236854',
-						address:'江苏省苏州市昆山市巴城镇学院路999号美居客电商产业大楼'
+						//nickname:'刘浩',
+						//telephone:'18454236854',
+						//address:'江苏省苏州市昆山市巴城镇学院路999号美居客电商产业大楼'
 					}
 				},
+
 				// 商品信息
 				/*commodity:[{
 					id:'300',
@@ -139,7 +141,6 @@
 					src:'/static/love-1/9010011.jpg',
 					number:'4'
 				}],*/
-				commodity:[],
 				
 				// 去支付模态框
 				pay:{
@@ -150,63 +151,133 @@
 				},
 				radio:'',
 				password:'',
-				rules:{
-					
+				modify_rules:{
+					nickname:[{
+						required:true,message:'请输入收件人姓名',trigger:'blur'
+					}],
+					telephone:[{
+						required:true,message:'请输入联系电话',trigger:'blur'
+					}],
+					address:[{
+						required:true,message:'请输入收货地址',trigger:'blur'
+					}]
 				},
-				arr:[]
+				order:[],
+				msg:[],
 			}
 		},
 		computed:{
 			total_price(){
 				// 计算总价
 				let total=0;
-				this.commodity.forEach(item=>{
-					total+=Number(item.pricel)*Number(item.number)
+				this.msg.forEach(item=>{
+					total+=Number(item.pricel)*Number(item.number);
 				})
 				return total;
 			}
 		},
+		watch:{
+      '$parent.$parent.usermsg.form.username':function(){
+        if(this.$parent.$parent.usermsg.form.username==undefined){
+        	this.$router.push('/')
+        }
+      }
+    },
+		beforeCreate(){
+
+		},
 		created(){
-			this.getcommodityid();
-			this.findCommodityByIds();
+			this.getcommodityid();			// 获取id(单件)
+			this.getusermsg();					// 获取user信息
+		},
+		mounted(){
+			
 		},
 		methods:{
-			findCommodityByIds(){	// 根据id查找商品
-				this.commodity.forEach(item=>{
-					this.arr.push(item.id)
+			getcommodityid(){	// 页面跳转时get商品id msg->pay
+				let id=this.$route.query.id;	// id是数组
+				//console.log(id)
+				if(Array.isArray(id)===true){
+					let entries=id.entries();		// entries为数组的key,val值
+					for([index,val] of entries){
+						//console.log(index,val)
+						this.msg.push(val);	// [{id:'302',number:2}{}{}]
+					}
+				};
+				let ids=this.msg.map(item=>{
+					return item.id
 				})
-				axios.get('/plate/pay?id='+this.arr)
-				.then(({data:results})=>{
-					
-					this.$message.success('查询成功')
-				})
-				.catch(()=>{
-					this.$message.warning('查询失败')
-				})
-				
-				
+				this.findCommodityByIds(ids)
 			},
-			
-			toModifyMsg(){	// 修改收货信息
+			getusermsg(){			//收货信息替换
+				let receive=_.clone(this.$parent.$parent.usermsg.form)
+				this.receive.form=receive
+			},
+			findCommodityByIds(ids){	// 根据id查找商品
+				if(ids.length==1){
+					axios.get('/commodity/findCommodityById?id='+ids[0])
+					.then(({data:results})=>{
+						// this.$message.success('ids查询成功');
+						/*this.$set(this.msg[0],{
+							'name':results[0].name,
+							'src': results[0].src,
+						  'pricel': results[0].pricel
+						})*/
+						this.$set(this.msg[0],'name',results[0].name);
+						this.$set(this.msg[0],'src',results[0].src);
+						this.$set(this.msg[0],'pricel',results[0].pricel);
+					})
+					.catch(()=>{
+						this.$message.error('ids查询失败');
+					})
+				}else{
+					axios.post('/commodity/findCommodityByIds',{ids})
+					.then(({data:results})=>{
+						// console.log('results-----',results)
+						this.$message.success('ids查询成功');
+						for(let i=0;i<this.msg.length;i++){
+							this.$set(this.msg[i],'name',results[i].name)
+							this.$set(this.msg[i],'src',results[i].src)
+							this.$set(this.msg[i],'pricel',results[i].pricel)
+						}
+					})
+					.catch(()=>{
+						this.$message.error('ids查询失败');
+					})
+				}
+			},
+			toModifyMsg(){				// 修改收货信息
 				this.receive.visible=true;
+				this.$refs.modifyForm.resetFields();
 			},
-			closePDialog(){	// 取消->关闭修改收件人信息的模态框
+			closePDialog(){				// 取消->关闭修改收件人信息的模态框(恢复默认)
 				this.receive.visible=false;
+				let receive=_.clone(this.$parent.$parent.usermsg.form)
+				this.receive.form=receive
 			},
 			saveOrUpdateReceive(){	// 保存->保存新收货信息
-
-				// 传参数到收货信息，并刷新页面
-				this.receive.visible=false;
+				this.$refs.modifyForm.validate((valid)=>{
+					if(valid){
+						this.receive.visible=false;
+					}else{
+						this.$message.warning('请输入完整收货信息')
+            return false;
+					}
+				})
 			},
-			
-			gopay(){	// 点击去付款->模态框
-				this.pay.visible=true;
+			gopay(){								// 点击去付款->模态框
+				if(this.receive.form.nickname==null){
+					this.$message.warning('请输入完整收货信息')
+				}else{
+					this.pay.visible=true;
+				}
+					
 			},
-			closePayDialog(){	// 关闭选择支付方式模态框
+			closePayDialog(){				// 关闭选择支付方式模态框
 				this.pay.visible=false;
 				this.radio='';// 清除支付单选项
 			},
-			topaynow(){	// 去付款->确定
+			topaynow(){							// 去付款->确定
 				if(this.radio==''){
 					this.$message.warning('请选择支付方式')
 				}else{
@@ -218,28 +289,69 @@
 				this.paynow.visible=false;
 				this.password=''
 			},
-			payed(){	// 输入支付密码->确定
-				this.$message({
-					message:'支付成功！',
-					type:'success'
-				});
-				this.paynow.visible=false;
-				this.pay.visible=false;
-				this.$router.push('/');
-				// 传数据到购物车，清除掉支付成功的商品
-				// 传数据到我的订单，添加支付成功的商品
-			},
-			getcommodityid(){	// 页面跳转时get商品id commodity->pay
-				let id=this.$route.query.id;	// id是数组
-				//console.log(id)
-				if(Array.isArray(id)===true){
-					let entries=id.entries();		// entries为数组的key,val值
-					for([index,val] of entries){
-						//console.log(index,val)
-						this.commodity.push(val);	// 将{id:'302',number:2}push到commodity数组中
-					}
+			payed(){					// 输入支付密码->确定
+				if(this.password!==this.$parent.$parent.usermsg.form.password){
+					this.$message.warning('密码错误');
+				}else{
+					// 传数据到购物车，清除掉支付成功的商品
+
+					// 清除order数组，传数据到我的订单
+					this.order.length=0;
+					this.msg.forEach(item=>{
+						this.order.push({
+							username:this.$parent.$parent.usermsg.form.username,
+							nickname:this.receive.form.nickname,
+							telephone:this.receive.form.telephone,
+							address:this.receive.form.address,
+							id:item.id,
+							number:item.number
+						})
+					})
+
+					this.order.forEach(item=>{
+						axios.post('/order/insertOrder',item)
+						.then(()=>{
+							this.$message.success('支付成功！');
+							this.paynow.visible=false;
+							this.pay.visible=false;
+
+							let obj={
+								username:item.username,
+								id:item.id
+							}
+							axios.post('/cart/deleteCart',obj)
+							.then(()=>{
+								this.$message.success('购物车修改成功');
+								this.$router.push('/');
+							})
+							.catch(()=>{
+								this.$message.error('购物车修改错误');
+							})
+							
+						})
+						.catch(()=>{
+							this.$message.error('支付错误');
+						})
+					})
+					
+					/*let msg=JSON.stringify(this.order)
+					console.log(msg)
+					axios.post('/order/insertOrder',msg)
+					.then(()=>{
+						this.$message({
+							message:'提交成功',
+							type:'success'
+						});
+					})
+					.catch(()=>{
+						this.$message({
+							message:'错误',
+							type:'error'
+						});
+					})*/
 				}
-			}
+			},
+			
 		}
 	}
 </script>
@@ -276,10 +388,10 @@
 	.pay-receive .pay-receive-msg {
 		padding: 0 20px;
 	}
-	.pay-receive-msg .receiver {
+	.pay-receive-msg .nickname {
 		margin-top: 20px;
 	}
-	.receiver span:first-child {
+	.nickname span:first-child {
 		margin-right: 15px;
 	}
 	.pay-receive-msg > * {

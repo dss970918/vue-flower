@@ -6,7 +6,7 @@
 				<div class="register-form">
 					<el-form :model="user" ref='userForm' :rules='usermsg' status-icon label-position='left'>
 				    <el-form-item label="用户名" prop='username' label-width="80px">
-				      <el-input v-model="user.username"></el-input>
+				      <el-input v-model="user.username" @blur='checkUser'></el-input>
 				    </el-form-item>
 				    <el-form-item label="密码" prop='password' label-width="80px">
 				      <el-input v-model="user.password" show-password></el-input>
@@ -17,7 +17,7 @@
 				  </el-form>
 				</div>
 				<div class="register-buttom">
-					<el-button @click='submitForm(userForm)'>注 册</el-button>
+					<el-button @click='submitForm()'>注 册</el-button>
 				</div>
 			</div>
 		</div>
@@ -25,6 +25,7 @@
 </template>
 
 <script>
+	import axios from '@/http/axios'
 	export default {
 		data(){
 			var validateUser = (rule, value, callback) =>{
@@ -70,26 +71,67 @@
 			}
 		},
 		methods:{
-			submitForm(userForm) {
+			submitForm() {
         this.$refs.userForm.validate((valid) => {
           if (valid) {
-            alert('注册成功');
-            // 此处应提交表单内容
+          	axios.get('/user/findUser?username='+this.user.username)
+		      	.then(({data:results})=>{
+		      		// console.log(results)
+		      		if(results.length!==0){
+		      			this.$message.warning('用户名已存在')
+		      		}else{
+		      			axios.post('/user/insertUser',this.user)
+		            .then(()=>{
+		            	this.$message({
+										message:'注册成功！',
+										type:'success'
+									});
+		            })
+		            .catch(()=>{
+		            	this.$message({
+										message:'注册失败',
+										type:'error'
+									});
+		            })
+		      		}
+		      	})
+            
           } else {
             console.log('error submit!!');
             return false;
           }
         });
       },
+      checkUser(){
+      	// console.log(this.user.username)
+      	if(this.user.username!==''){
+      		axios.get('/user/findUser?username='+this.user.username)
+	      	.then(({data:results})=>{
+	      		console.log(results)
+	      		if(results.length!==0){
+	      			this.$message.warning('用户名已存在')
+	      		}
+	      	})
+	      	.catch(()=>{
+	      		this.$message.error('查询失败');
+	      	})
+      	}
+      	
+      }
 		}
 	}
 </script>
 
 <style>
 	.register-wrapper {
-		background: url('/static/z-login2.jpg') 0 0 no-repeat;
+		background: url('../../static/z-login2.jpg') 0 0 no-repeat;
 		height: 500px;
 		background-size: contain;
+	}
+	.register-wrapper::after {
+		content: '';
+		display: block;
+		clear: both;
 	}
 	.register-wrapper .register-msg {
 		width: 400px;

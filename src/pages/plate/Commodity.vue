@@ -66,37 +66,17 @@
 		props:['username'],
 		data(){
 			return {
-				/*commodity:{
-					id:'',
-					name:'',
-					material:'鲜花材料',
-					language:'鲜花花语',
-					packing:'鲜花包装',
-					priceh:'',
-					pricel:'',
-					src1:
-					src2:
-					src3:
-				},*/
 				commodity:{},
 				src:[{},{},{}],
 				number:'1'
 			}
 		},
-		
 		watch:{
-			/*number:function(){
-				if(this.number>=99){this.number=99}
-				if(this.number<1){this.number=1}
-			},*/
 			
 		},
-		
 		created(){
-			this.getcommodityid();
 			this.findCommodityById();
 		},
-		
 		methods:{
 			/*BlurText(e){
 				// 数量限制为正整数
@@ -107,12 +87,8 @@
 					this.$refs.number.focus();
 				}
 			},*/
-			getcommodityid(){	// 页面跳转时get商品id
-				let id=this.$route.query.id;
-				this.commodity.id=id
-			},
 			findCommodityById(){	// 根据id查找商品
-				axios.get('/commodity/findCommodityById?id='+this.commodity.id)
+				axios.get('/commodity/findCommodityById?id='+this.$route.query.id)
 				.then(({data:results})=>{
 					this.commodity=results[0];//这个没有src[]
 					this.src=[{
@@ -123,8 +99,6 @@
 						src:this.commodity.src3
 					}]
 					this.commodity.src=this.src;
-					// console.log(this.commodity);
-					// console.log(this.src);
 					this.$message.success('查询成功')
 				})
 				.catch(()=>{
@@ -137,18 +111,29 @@
 					this.$message.warning('请输入正整数');
 				}
 			},
-			addshoppingcart(){	// 加入购物车
+			addshoppingcart(){		// 加入购物车
 				if(this.$parent.$parent.username==undefined||this.$parent.$parent.username==''){
-					this.$message.error('请先登录')
+					this.$message.warning('请先登录')
 				}else{
 					// 此处加入购物车
-					this.$message.success('加入购物车成功')
+					let obj={
+						username:this.$parent.$parent.usermsg.form.username,
+						id:this.commodity.id,
+						number:this.number
+					}
+					axios.post('/cart/insertCart',obj)
+					.then(()=>{
+						this.$message.success('加入购物车成功')
+					})
+					.catch(()=>{
+						this.$message.error('加入购物车失败')
+					})
+					
 				}
 			},
-			buy(){
-				// console.log(this.commodity)
+			buy(){								// 立即购买
 				if(this.$parent.$parent.username==undefined||this.$parent.$parent.username==''){
-					this.$message.error('请先登录')
+					this.$message.warning('请先登录')
 				}else{
 					// 此处跳转到pay页
 					this.$router.push({

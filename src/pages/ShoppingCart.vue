@@ -4,7 +4,7 @@
   		<div class="cart-commodity">
 				<el-table
 			    ref="multipleTable"
-			    :data="commodity"
+			    :data="msg"
 			    tooltip-effect="dark"
 			    style="width: 100%"
 			    @selection-change="handleSelectionChange">
@@ -17,7 +17,7 @@
 			      width="343">
 			      <template slot-scope='{row}'>
 			      	<img :src="row.src">
-			      	<span>{{row.name}}</span>
+			      	<span style='position: relative;bottom: 40px;'>{{row.name}}</span>
 			      </template>
 			    </el-table-column>
 			    <el-table-column
@@ -33,11 +33,13 @@
 			      width="200"
 			      align='center'>
 			      <template slot-scope='{row}'>
-			      	<div>
+			      	
 								<el-button icon='el-icon-minus' @click='minus(row)'></el-button>
-			      		{{row.number}}
+			      		
+			      		<span>{{row.number}}</span>
     						<el-button icon='el-icon-plus' @click='plus(row)'></el-button>
-			      	</div>
+    						<!-- <el-input-number v-model="row.number" @change='handleChange' :precision="0" :min="1" :max="99"></el-input-number> -->
+			      	
 			      </template>
 			    </el-table-column>
 			    <el-table-column
@@ -58,10 +60,15 @@
 			      </template>
 			    </el-table-column>
 			  </el-table>
-				{{multipleSelection}}
+				
+				multipleSelection---{{multipleSelection}}<br><br><br>
+				cart---{{cart}}<br><br><br>
+				commodity---{{commodity}}<br><br><br>
+				msg---{{msg}}<br><br><br>
+				
 				<div class="cart-pay">
 					<div class="cart-total">
-						<span>共{{commodity.length}}件商品，已选择{{multipleSelection.length}}件</span>
+						<span>共{{msg.length}}件商品，已选择{{multipleSelection.length}}件</span>
 						<span>总计：</span>
 						<span>￥{{total_price}}</span>
 					</div>
@@ -75,11 +82,13 @@
 </template>
 
 <script>
+	import axios from '@/http/axios'
 	export default {
+		props:['usermsg'],
 		data(){
 			return {
 				// 商品信息
-				commodity:[{
+				/*commodity:[{
 					id:'300',
 					name:'一心一意',
 					pricel:'138',
@@ -91,7 +100,8 @@
 					pricel:'229',
 					src:'/static/love-8.jpg',
 					number:'1'
-				}],
+				}],*/
+
 				// 去支付模态框
 				pay:{
 					visible:false
@@ -99,10 +109,11 @@
 				paynow:{
 					visible:false
 				},
+				
 				multipleSelection:[],
-				rules:{
-					
-				}
+				cart:[],
+				commodity:[],
+				msg:[]
 			}
 		},
 		computed:{
@@ -117,27 +128,128 @@
 			commodity_price(){
 				// 计算单个商品价格
 				let price=0;
-				this.commodity.forEach(item=>{
+				this.msg.forEach(item=>{
 					price=Number(item.pricel)*Number(item.number)
 				});
 				return price
 			}
 		},
+		watch:{
+      '$parent.usermsg.form.username':function(){
+        if(this.$parent.usermsg.form.username==undefined){
+        	this.$router.push('/')
+        }
+      }
+    },
 		created(){
-			
+			this.findCartByUsername();
+		},
+		mounted(){
+			// this.$router.push('/')
 		},
 		methods:{
+			findCartByUsername(){
+				this.msg=[];
+        this.cart=[];
+        this.commodity=[];
+				axios.get('/cart/findCartByUsername?username='+this.$route.query.username)
+				.then(({data:results})=>{
+					this.$message.success('购物车信息查询成功')
+					// console.log(results)
+					this.cart=results;
+					let ids=this.cart.map(item=>{
+						return item.id
+					})
+					// console.log(ids)
+					this.findCommodityByIds(ids)
+				})
+				.catch(()=>{
+					this.$message.error('购物车查询错误')
+				})
+			},
+			findCommodityByIds(ids){
+				// console.log({ids})//{ids:['300','304','308']}
+				if(ids.length==1){
+					axios.get('/commodity/findCommodityById?id='+ids[0])
+					.then(({data:results})=>{
+						this.$message.success('id查询成功');
+						this.commodity=results;
+						let obj={
+								id:this.cart[0].id,
+								name:this.commodity[0].name,
+								pricel:this.commodity[0].pricel,
+								src:this.commodity[0].src,
+								number:this.cart[0].number
+						};
+						this.msg.push(obj)
+					})
+				}else{
+					axios.post('/commodity/findCommodityByIds',{ids})
+					.then(({data:results})=>{
+						// console.log('results-----',results)
+						this.$message.success('ids查询成功');
+						this.commodity=results;
+						
+						for(let i=0;i<this.cart.length;i++){
+							let obj={
+								id:this.cart[i].id,
+								name:this.commodity[i].name,
+								pricel:this.commodity[i].pricel,
+								src:this.commodity[i].src,
+								number:this.cart[i].number
+							};
+							this.msg.push(obj)
+						}
+					})
+					.catch(()=>{
+						this.$message.error('ids查询失败');
+					})
+				}
+			},
 			handleSelectionChange(val){
 				this.multipleSelection=val;
 			},
+			/*handleChange(value){
+				let boolean=new RegExp('^[1-9][0-9]*$').test(value);
+				if(!boolean){
+					this.$message.warning('请输入正整数');
+				}
+				console.log(value)
+			},*/
+
 			minus(row){
 				if(row.number>1&&row.number<=99){
 					row.number--;
+					// console.log(row)
+					let obj={
+						username:this.$parent.usermsg.form.username,
+						id:row.id
+					}
+					// console.log(obj)
+					axios.post('/cart/reduceCartNumber',obj)
+					.then(()=>{
+						this.$message.success('减少成功');
+					})
+					.catch(()=>{
+						this.$message.warning('减少失败')
+					})
 				}
 			},
 			plus(row){
 				if(row.number>=1&&row.number<99){
 					row.number++;
+					let obj={
+						username:this.$parent.usermsg.form.username,
+						id:row.id
+					}
+					// console.log(obj)
+					axios.post('/cart/addCartNumber',obj)
+					.then(()=>{
+						this.$message.success('增加成功');
+					})
+					.catch(()=>{
+						this.$message.warning('增加失败')
+					})
 				}
 			},
 			gopay(){
@@ -149,7 +261,7 @@
 					this.multipleSelection.forEach(item=>{
 						arr.push({id:item.id,number:item.number})
 					});
-					console.log(arr);
+					// console.log(arr);
 					this.$router.push({
 						path:'/plate/pay',
 						query:{
@@ -166,14 +278,18 @@
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-        	//这只是暂时的
-        	this.multipleSelection.splice(this.multipleSelection.indexOf(row),1);
-      		this.commodity.splice(this.commodity.indexOf(row),1);
-      		// 此处应为axios.get
-          this.$message({
-            type: 'success',
-            message: '删除成功!'
-          });
+        	let obj={
+						username:this.$parent.usermsg.form.username,
+						id:row.id
+					}
+        	axios.post('/cart/deleteCart',obj)
+        	.then(()=>{
+          	this.$message.success('删除成功');
+          	this.findCartByUsername();
+        	})
+        	.catch(()=>{
+        		this.$message.error('删除失败');
+        	})
         })
 			}
 		}
@@ -197,6 +313,22 @@
 	.cart-commodity table img {
 		width: 100px;
 		height: 100px;
+	}
+	.cart-commodity tbody > * > td:nth-child(4) > div > .el-button:first-child {
+		background-color: #f5f7fa;
+		border-radius: 4px 0 0 4px;
+		height: 40px;
+	}
+	.cart-commodity tbody > * > td:nth-child(4) > div > span {
+		display: inline-block;
+		width: 40px;
+		height: 40px;
+		text-align: center;
+	}
+	.cart-commodity tbody > * > td:nth-child(4) > div > .el-button:last-child {
+		background-color: #f5f7fa;
+		border-radius: 0 4px 4px 0;
+		height: 40px;
 	}
 	.cart-commodity > .cart-pay {
 		padding-right: 20px;

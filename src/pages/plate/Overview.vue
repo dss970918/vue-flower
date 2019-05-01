@@ -29,67 +29,63 @@
   export default {
     data(){
       return {
-        /*platemsg:[{
-          id:'300',
-          src:'/static/love-1.jpg',
-          name:'一心一意',
-          pricel:'138'
-        },{
-          id:'301',
-          src:'/static/love-2.jpg',
-          name:'爱你如初',
-          pricel:'529'
-        },{
-          id:'302',
-          src:'/static/love-3.jpg',
-          name:'致美丽的你',
-          pricel:'138'
-        },{
-          id:'303',
-          src:'/static/love-4.jpg',
-          name:'青青子衿',
-          pricel:'280'
-        },{
-          id:'304',
-          src:'/static/love-5.jpg',
-          name:'月光女神',
-          pricel:'232'
-        },{
-          id:'305',
-          src:'/static/love-6.jpg',
-          name:'真爱如初',
-          pricel:'202'
-        },{
-          id:'306',
-          src:'/static/love-7.jpg',
-          name:'爱的小确幸',
-          pricel:'309'
-        },{
-          id:'307',
-          src:'/static/love-8.jpg',
-          name:'致青春',
-          pricel:'229'
-        }],*/
-        platemsg:[],
-        type:''
+        platemsg:[]
+      }
+    },
+    watch:{
+      '$route.query':function(){
+        this.getCommodityTypeOrKey();
       }
     },
     created(){
-      this.getcommoditytype();
-      this.findCommodityByType();
+      this.getCommodityTypeOrKey();
     },
     methods:{
-      getcommoditytype(){
+      getCommodityTypeOrKey(){
         // 根据路由获取query中的type
-        this.type=this.$route.query.type;
+        let type=this.$route.query.type;
+        let key=this.$route.query.key;
+        if(type){
+          this.findCommodityByType(type);
+        }else if(key){
+          this.findCommodityByKey(key);
+        }else{
+          this.findAllCommodity();
+        }
+
       },
-      findCommodityByType(){
+      findAllCommodity(){
+        axios.get('/commodity/findAllCommodity')
+        .then(({data:results})=>{
+          this.platemsg=results
+        })
+        .catch(()=>{
+          this.$message.error('查询失败')
+        })
+      },
+      findCommodityByType(type){
         // 根据type查询数据
-        axios.get('/commodity/findCommodityByType?type='+this.type)
+        axios.get('/commodity/findCommodityByType?type='+type)
         .then(({data:results})=>{
           // console.log({data:results})
           this.platemsg=results;
-          this.$message.success('查询成功')
+          if(this.platemsg.length==0){
+            this.$message.error('商品不存在')
+          }else{
+            this.$message.success('查询成功')
+          }
+        })
+      },
+      findCommodityByKey(key){
+        // 根据key查询数据
+        axios.get('/commodity/findCommodityByKey?key='+key)
+        .then(({data:results})=>{
+          this.platemsg=results;
+          if(this.platemsg.length==0){
+            this.$message.error('商品不存在')
+          }else{
+            this.$message.success('查询成功')
+          }
         })
       }
     }

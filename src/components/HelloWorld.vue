@@ -3,52 +3,45 @@
     <div class="nav">
       <div class="wrapper nav-wrapper">
         <span>全部商品导购</span>
-        <router-link to='/plate/overview'>鲜花</router-link>
-        <router-link to='/plate/overview'>永生花</router-link>
-        <router-link to='/plate/overview'>玫瑰花</router-link>
-        <router-link to='/plate/overview'>绿植盆栽</router-link>
-        <router-link to='/plate/overview'>七夕情人节鲜花</router-link>
+        <router-link to='/plate/overview?key=鲜花'>鲜花</router-link>
+        <router-link to='/plate/overview?type=5'>永生花</router-link>
+        <router-link to='/plate/overview?key=玫瑰'>玫瑰花</router-link>
+        <router-link to='/plate/overview?type=6'>绿植盆栽</router-link>
+        <router-link to='/plate/overview?type=3'>七夕情人节鲜花</router-link>
       </div>
     </div>
     
     <div class="carousel">
-      <el-carousel type='card' interval='3000'>
+      <el-carousel type='card'>
         <div class="left-nav">
           <div class="left-nav-variety">
             <div class="title">鲜花品种</div>
             <ul>
-              <li><router-link to='/plate/overview'>玫瑰</router-link></li>
-              <li><router-link to='/plate/overview'>风信子</router-link></li>
-              <li><router-link to='/plate/overview'>紫罗兰</router-link></li>
-              <li><router-link to='/plate/overview'>桂花</router-link></li>
-              <li><router-link to='/plate/overview'>百合</router-link></li>
-              <li><router-link to='/plate/overview'>康乃馨</router-link></li>
-              <li><router-link to='/plate/overview'>栀子花</router-link></li>
-              <li><router-link to='/plate/overview'>郁金香</router-link></li>
-              <li><router-link to='/plate/overview'>马蹄莲</router-link></li>
+              <li><router-link to='/plate/overview?key=玫瑰'>玫瑰</router-link></li>
+              <li><router-link to='/plate/overview?key=百合'>百合</router-link></li>
+              <li><router-link to='/plate/overview?key=紫罗兰'>紫罗兰</router-link></li>
+              <li><router-link to='/plate/overview?key=向日葵'>向日葵</router-link></li>
+              <li><router-link to='/plate/overview?key=康乃馨'>康乃馨</router-link></li>
+              
+              <li><router-link to='/plate/overview?key=郁金香'>郁金香</router-link></li>
+              <li><router-link to='/plate/overview?key=马蹄莲'>马蹄莲</router-link></li>
             </ul>
           </div>
           <div class="left-nav-purpose">
             <div class="title">鲜花用途</div>
             <ul>
-              <li><router-link to='/plate/overview'>爱情鲜花</router-link></li>
-              <li><router-link to='/plate/overview'>探病鲜花</router-link></li>
-              <li><router-link to='/plate/overview'>友情鲜花</router-link></li>
-              <li><router-link to='/plate/overview'>道歉鲜花</router-link></li>
-              <li><router-link to='/plate/overview'>祝贺鲜花</router-link></li>
-              <li><router-link to='/plate/overview'>婚庆鲜花</router-link></li>
-              <li><router-link to='/plate/overview'>商务鲜花</router-link></li>
+              <li><router-link to='/plate/overview?type=3'>爱情鲜花</router-link></li>
+              <li><router-link to='/plate/overview?type=4'>送长辈鲜花</router-link></li>
+              <li><router-link to='/plate/overview?key=永恒'>婚庆鲜花</router-link></li>
+              <li><router-link to='/plate/overview?key=海洋之心'>商务鲜花</router-link></li>
             </ul>
           </div>
           <div class="left-nav-type">
             <div class="title">鲜花类别</div>
             <ul>
-              <li><router-link to='/plate/overview'>开业花篮</router-link></li>
-              <li><router-link to='/plate/overview'>永生花</router-link></li>
-              <li><router-link to='/plate/overview'>花束</router-link></li>
-              <li><router-link to='/plate/overview'>香皂花</router-link></li>
-              <li><router-link to='/plate/overview'>瓶花</router-link></li>
-              <li><router-link to='/plate/overview'>办公室盆栽</router-link></li>
+              <li><router-link to='/plate/overview?key=开业'>开业花篮</router-link></li>
+              <li><router-link to='/plate/overview?type=5'>永生花</router-link></li>
+              <li><router-link to='/plate/overview?type=6'>办公室盆栽</router-link></li>
             </ul>
           </div>
         </div>
@@ -141,7 +134,7 @@
             <li>
               <router-link :to="{path:'/plate/overview',query:{type:3}}">
                 <div class="love-left-img">
-                  <img src="/static/love.jpg" alt="">
+                  <img src="static/love.jpg" alt="">
                 </div>
                 <div class="love-to">
                   <div class="love-to-title">爱情鲜花专区>></div>
@@ -177,7 +170,7 @@
             <li>
               <router-link :to="{path:'/plate/overview',query:{type:4}}">
                 <div class="thanks-left-img">
-                  <img src="/static/thanks.jpeg" alt="">
+                  <img src="static/thanks.jpeg" alt="">
                 </div>
                 <div class="thanks-to">
                   <div class="thanks-to-title">感恩鲜花专区>></div>
@@ -213,7 +206,7 @@
             <li>
               <router-link :to="{path:'/plate/overview',query:{type:5}}">
                 <div class="immortal-left-img">
-                  <img src="/static/immortal.jpeg" alt="">
+                  <img src="static/immortal.jpeg" alt="">
                 </div>
                 <div class="immortal-to">
                   <div class="immortal-to-title">永生花专区>></div>
@@ -249,21 +242,21 @@
       return {
         items:[{
           id:'00',
-          src:'/static/carousel-1.jpg',
+          src:'../static/carousel-1.jpg',
           href:'/plate/overview?type=3'
         },{
           id:'01',
-          src:'/static/carousel-2.jpg',
+          src:'../static/carousel-2.jpg',
           href:'/plate/overview?type=5'
         },{
           id:'02',
-          src:'/static/carousel-3.jpg',
+          src:'../static/carousel-3.jpg',
           href:'/plate/overview?type=6'
         }],
 
         hotmsg:[{
           id:'500',
-          src:'/static/immortal-1.jpg',
+          src:'../static/immortal-1.jpg',
           hotmsghead:'特惠',
           title:' 桃心玻璃罩 永生花 礼盒',
           pricel:'176',
@@ -276,7 +269,7 @@
           // packing:'内层白色雾面纸，外层牛皮纸,咖啡色花结'
         },{
           id:'302',
-          src:'/static/love-3.jpg',
+          src:'../static/love-3.jpg',
           hotmsghead:'限时购',
           title:'致美丽的你 红玫瑰',
           pricel:'138',
@@ -289,7 +282,7 @@
           // packing:'内层白色雾面纸，外层牛皮纸,咖啡色花结',
         },{
           id:'405',
-          src:'/static/thanks-6.jpg',
+          src:'../static/thanks-6.jpg',
           hotmsghead:'满折',
           title:'温馨问候',
           pricel:'285',
@@ -299,7 +292,7 @@
           // src2:'/static/thanks-6/405-2.jpg'
         },{
           id:'501',
-          src:'/static/immortal-2.jpg',
+          src:'../static/immortal-2.jpg',
           hotmsghead:'满减',
           title:'Be My Love',
           pricel:'398',
@@ -309,7 +302,7 @@
           // src2:'/static/immortal-2/501-2.jpg'
         },{
           id:'400',
-          src:'/static/thanks-1.jpg',
+          src:'../static/thanks-1.jpg',
           hotmsghead:'满减',
           title:'母爱 康乃馨',
           pricel:'175',
@@ -321,35 +314,35 @@
 
         timelimit:[{
           id:'20',
-          src:'/static/time-1.jpg',
+          src:'../static/time-1.jpg',
           timelimithead:'限时购',
           title:'绿野仙踪 永生花 鲜花礼盒',
           pricel:'469',
           priceh:'499',
         },{
           id:'506',
-          src:'/static/immortal-7.jpg',
+          src:'../static/immortal-7.jpg',
           timelimithead:'限时购',
           title:'永生花 玻璃罩 礼盒',
           pricel:'338',
           priceh:'399',
         },{
           id:'308',
-          src:'/static/love-9.jpg',
+          src:'../static/love-9.jpg',
           timelimithead:'满折',
           title:'恋恋情深 香槟玫瑰',
           pricel:'199',
           priceh:'255',
         },{
           id:'401',
-          src:'/static/thanks-2.jpg',
+          src:'../static/thanks-2.jpg',
           timelimithead:'满减',
           title:'天使之祈',
           pricel:'198',
           priceh:'252',
         },{
           id:'309',
-          src:'/static/love-10.jpg',
+          src:'../static/love-10.jpg',
           timelimithead:'满减',
           title:'甜美公主',
           pricel:'376',
@@ -358,49 +351,49 @@
 
         lovemsg:[{
           id:'300',
-          src:'/static/love-1.jpg',
+          src:'../static/love-1.jpg',
           title:'一心一意',
           pricel:'138',
           priceh:'189',
         },{
           id:'301',
-          src:'/static/love-2.jpg',
+          src:'../static/love-2.jpg',
           title:'爱你如初',
           pricel:'529',
           priceh:'636',
         },{
           id:'302',
-          src:'/static/love-3.jpg',
+          src:'../static/love-3.jpg',
           title:'致美丽的你',
           pricel:'138',
           priceh:'191',
         },{
           id:'303',
-          src:'/static/love-4.jpg',
+          src:'../static/love-4.jpg',
           title:'青青子衿',
           pricel:'280',
           priceh:'359',
         },{
           id:'304',
-          src:'/static/love-5.jpg',
+          src:'../static/love-5.jpg',
           title:'月光女神',
           pricel:'232',
           priceh:'305',
         },{
           id:'305',
-          src:'/static/love-6.jpg',
+          src:'../static/love-6.jpg',
           title:'真爱如初',
           pricel:'202',
           priceh:'265',
         },{
           id:'306',
-          src:'/static/love-7.jpg',
+          src:'../static/love-7.jpg',
           title:'爱的小确幸',
           pricel:'309',
           priceh:'395',
         },{
           id:'307',
-          src:'/static/love-8.jpg',
+          src:'../static/love-8.jpg',
           title:'致青春',
           pricel:'229',
           priceh:'295',
@@ -408,49 +401,49 @@
 
         thanksmsg:[{
           id:'400',
-          src:'/static/thanks-1.jpg',
+          src:'../static/thanks-1.jpg',
           title:'母爱',
           pricel:'175',
           priceh:'228',
         },{
           id:'401',
-          src:'/static/thanks-2.jpg',
+          src:'../static/thanks-2.jpg',
           title:'天使之祈',
           pricel:'198',
           priceh:'252',
         },{
           id:'402',
-          src:'/static/thanks-3.jpg',
+          src:'../static/thanks-3.jpg',
           title:'向日葵之歌',
           pricel:'189',
           priceh:'242',
         },{
           id:'403',
-          src:'/static/thanks-4.jpg',
+          src:'../static/thanks-4.jpg',
           title:'爱的思念',
           pricel:'196',
           priceh:'251',
         },{
           id:'404',
-          src:'/static/thanks-5.jpg',
+          src:'../static/thanks-5.jpg',
           title:'留住好时光',
           pricel:'238',
           priceh:'306',
         },{
           id:'405',
-          src:'/static/thanks-6.jpg',
+          src:'../static/thanks-6.jpg',
           title:'温馨问候',
           pricel:'285',
           priceh:'389',
         },{
           id:'406',
-          src:'/static/thanks-7.jpg',
+          src:'../static/thanks-7.jpg',
           title:'漾恬假期',
           pricel:'238',
           priceh:'305',
         },{
           id:'407',
-          src:'/static/thanks-8.jpg',
+          src:'../static/thanks-8.jpg',
           title:'妈妈的爱',
           pricel:'159',
           priceh:'202',
@@ -458,49 +451,49 @@
 
         immortalmsg:[{
           id:'500',
-          src:'/static/immortal-1.jpg',
+          src:'../static/immortal-1.jpg',
           title:'桃心玻璃罩 永生花 礼盒',
           pricel:'176',
           priceh:'235',
         },{
           id:'501',
-          src:'/static/immortal-2.jpg',
+          src:'../static/immortal-2.jpg',
           title:'Be My Love',
           pricel:'398',
           priceh:'598',
         },{
           id:'502',
-          src:'/static/immortal-3.jpg',
+          src:'../static/immortal-3.jpg',
           title:'看得到的美好',
           pricel:'399',
           priceh:'499',
         },{
           id:'503',
-          src:'/static/immortal-4.jpg',
+          src:'../static/immortal-4.jpg',
           title:'一生一世',
           pricel:'198',
           priceh:'259',
         },{
           id:'504',
-          src:'/static/immortal-5.jpg',
+          src:'../static/immortal-5.jpg',
           title:'一路有你',
           pricel:'338',
           priceh:'569',
         },{
           id:'505',
-          src:'/static/immortal-6.jpg',
+          src:'../static/immortal-6.jpg',
           title:'海洋之恋',
           pricel:'999',
           priceh:'1399',
         },{
           id:'506',
-          src:'/static/immortal-7.jpg',
+          src:'../static/immortal-7.jpg',
           title:'永生花 玻璃罩 礼盒',
           pricel:'338',
           priceh:'399',
         },{
           id:'507',
-          src:'/static/immortal-8.jpg',
+          src:'../static/immortal-8.jpg',
           title:'十二星座红色永生玫瑰',
           pricel:'268',
           priceh:'328',
@@ -602,7 +595,7 @@
   }
   .left-nav > * > ul {
     width: 230px;
-    margin: 8px auto;
+    margin: 15px auto;
   }
   .left-nav > * > ul > * {
     display: inline-block;
@@ -614,21 +607,21 @@
     color: #f76372;
   }
   .left-nav .left-nav-variety a {
-    margin-right: 20px;
+    margin-right: 28px;
   }
   .left-nav-variety .title {
     padding-top: 8px;
   }
   .left-nav-variety ul,
   .left-nav-purpose ul {
-    padding-bottom: 1em;
+    padding-bottom: 1.5em;
     border-bottom: 1px solid rgba(247,99,114,0.3);
   }
   .left-nav .left-nav-purpose a {
     margin-right: 25px;
   }
   .left-nav .left-nav-type a {
-    margin-right: 35px;
+    margin-right: 32px;
   }
   .left-nav-type ul > li:nth-child(4) a {
     margin-right: 49px;
@@ -637,12 +630,15 @@
     margin-right: 32px;
   }
   .left-nav-variety ul > li:nth-child(4) a,
-  .left-nav-variety ul > li:nth-child(8) a,
   .left-nav-purpose ul > li:nth-child(3) a,
   .left-nav-purpose ul > li:nth-child(6) a,
   .left-nav-type ul > li:nth-child(3) a,
   .left-nav-type ul > li:nth-child(6) a {
     margin: 0;
+  }
+  .left-nav-variety ul > li:nth-child(5) a,
+  .left-nav-variety ul > li:nth-child(6) a {
+    margin-right: 15px;
   }
 
 

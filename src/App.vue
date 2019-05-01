@@ -18,14 +18,14 @@
 						<router-link to='/register'>快速注册</router-link>
 					</li>
 					<li :class='{current:currentRoute=="/order"}'>
-						<router-link to='/order'>我的订单</router-link>
+						<a @click='toOrder'>我的订单</a>
 					</li>
 					<li :class='{current:currentRoute=="/shoppingcart"}'>
-						<router-link to='/shoppingcart'>
+						<a @click='toShoppingcart'>
 							<i class="fa fa-shopping-cart"></i>
 							购物车
 							<i class="fa fa-caret-down"></i>
-						</router-link>
+						</a>
 					</li>
 					<li :class='{current:currentRoute=="/"}'>
 						<router-link to='/'>樱花部落</router-link>
@@ -38,26 +38,26 @@
     	<div class="wrapper header-wrapper">
     		<div class="logo">
     			<router-link to='/'>
-    				<img src="/static/title-1.jpg" alt="">
-						<img src="/static/title-2.jpg" alt="">
+    				<img src="../static/title-1.jpg" alt="">
+						<img src="../static/title-2.jpg" alt="">
     			</router-link>
     		</div>
     		<div class="search">
 					<div class="search-top">
 					  <el-input placeholder="鲜花关键词" v-model="input" class="input-with-select" prefix-icon='el-icon-search' clearable>
-					    <el-button slot="append">搜 索</el-button>
+					    <el-button slot="append" @click='search'>搜 索</el-button>
 					  </el-input>
 					</div>
 					<div class="search-bottom">
-						<router-link to='/plate/overview'>红玫瑰</router-link>
+						<router-link to='/plate/overview?key=红玫瑰'>红玫瑰</router-link>
 						&nbsp;|&nbsp;
-						<router-link to='/plate/overview'>白玫瑰</router-link>
+						<router-link to='/plate/overview?key=白玫瑰'>白玫瑰</router-link>
 						&nbsp;|&nbsp;
-						<router-link to='/plate/overview'>康乃馨</router-link>
+						<router-link to='/plate/overview?key=康乃馨'>康乃馨</router-link>
 						&nbsp;|&nbsp;
-						<router-link to='/plate/overview'>百合</router-link>
+						<router-link to='/plate/overview?key=百合'>百合</router-link>
 						&nbsp;|&nbsp;
-						<router-link to='/plate/overview'>郁金香</router-link>
+						<router-link to='/plate/overview?key=郁金香'>郁金香</router-link>
 					</div>
     		</div>
     		<div class="service">
@@ -113,23 +113,23 @@
     		<div class="footer-foot">
 					<div class="footer-foot-top">
 						<div>
-							<img src="/static/handshake-o.png" alt="">
+							<img src="../static/handshake-o.png" alt="">
 							<span>诚信网站</span>
 						</div>
 						<div>
-							<img src="/static/卡车.png" alt="">
+							<img src="../static/卡车.png" alt="">
 							<span>满98元免邮费</span>
 						</div>
 						<div>
-							<img src="/static/微信.png" alt="">
+							<img src="../static/微信.png" alt="">
 							<span>微信支付</span>
 						</div>
 						<div>
-							<img src="/static/支付宝.png" alt="">
+							<img src="../static/支付宝.png" alt="">
 							<span>支付宝</span>
 						</div>
 						<div>
-							<img src="/static/thumbs-up.png" alt="">
+							<img src="../static/thumbs-up.png" alt="">
 							<span>品质保证</span>
 						</div>
 					</div>
@@ -157,18 +157,19 @@
 
 		<!-- 个人信息模态框 -->
 		<el-dialog class='usermsgDialog' title="个人信息" :visible.sync="usermsg.visible" center>
-			<!-- 修改信息 -->
+			<!-- 修改信息模态框 -->
 			<el-dialog
 	      width="30%"
 	      title="修改信息"
 	      :visible.sync="modifymsg.visible"
-	      append-to-body>
+	      append-to-body
+	      class='modifyDialog'>
 				<el-form :model="modifymsg.form" ref='userMsgForm' :rules='modify_usermsg' status-icon label-position='left'>
-			    <el-form-item label="用户名" label-width="90px" prop='username'>
-			      <el-input v-model="modifymsg.form.username" auto-complete="off"></el-input>
+			    <el-form-item label="用户名" label-width="90px">
+			      {{modifymsg.form.username}}
 			    </el-form-item>
-			    <el-form-item label="新密码" label-width="90px" prop='newpassword'>
-			      <el-input v-model="newpassword" auto-complete="off" show-password></el-input>
+			    <el-form-item label="新密码" label-width="90px" prop='password'>
+			      <el-input v-model="modifymsg.form.password" auto-complete="off" show-password></el-input>
 			    </el-form-item>
 			    <el-form-item label="真实姓名" label-width="90px" prop='nickname'>
 			      <el-input v-model="modifymsg.form.nickname" auto-complete="off"></el-input>
@@ -180,10 +181,10 @@
 			      <el-input v-model="modifymsg.form.address" auto-complete="off"></el-input>
 			    </el-form-item>
 			  </el-form>
-			  {{modifymsg.form}}
+			  modifymsg:{{modifymsg.form}}<br>
 			  <div slot="footer" class="dialog-footer">
-			    <el-button @click="">取 消</el-button>
-			    <el-button @click="">确 定</el-button>
+			    <el-button @click="closeModify">取 消</el-button>
+			    <el-button @click="updateUser">确 定</el-button>
 			  </div>
 	    </el-dialog>
 			
@@ -194,24 +195,28 @@
 		    <el-form-item label="联系电话" label-width="100px">{{usermsg.form.telephone}}</el-form-item>
 		    <el-form-item label="收货地址" label-width="100px">{{usermsg.form.address}}</el-form-item>
 		  </el-form>
+		  usermsg{{usermsg.form}}
 		  <div slot="footer" class="dialog-footer">
 		    <el-button @click="closeUsermsg">确 定</el-button>
 		    <el-button @click="toModifyMsg">修改信息</el-button>
 		  </div>
 		</el-dialog>
-		
-		<!-- 修改信息模态框 -->
-		
-
   </div>
 </template>
 
 <script>
 	import axios from '@/http/axios'
 	import commodity from './pages/plate/Commodity'
+	import pay from './pages/plate/Pay'
+	import order from './pages/Order'
+	import shoppingcart from './pages/ShoppingCart'
+	
 	export default {
 		components:{
-			commodity
+			commodity,
+			pay,
+			order,
+			shoppingcart
 		},
 		data(){
 			return {
@@ -233,17 +238,13 @@
 				modifymsg:{
 					visible:false,	// 修改信息模态框的visible
 					form:{
-						
+
 					}
 				},
 				username:'',
-				newpassword:'',
 				dropdownMenu:true,
 				modify_usermsg:{	//修改信息的表单验证
-					username:[{
-						required:true,message:'请输入用户名',trigger:'blur'
-					}],
-					newpassword:[{
+					password:[{
 						required:true,message:'请输入新密码',trigger:'blur'
 					}],
 					nickname:[{
@@ -256,19 +257,6 @@
 						required:true,message:'请输入收货地址',trigger:'blur'
 					}]
 				}
-				/*rules:{
-					username:[{
-						required:true,
-						message:'请输入用户名',
-						trigger:'blur'
-					}],
-					password:[{
-						required:true,
-						message:'请输入密码',
-						trigger:'blur'
-
-					}]
-				}*/
 			}
 		},
 		created(){
@@ -286,7 +274,7 @@
 			handleCommand(command){
         if(command=='logout'){
         	this.username='';//这也只是暂时的
-
+        	this.usermsg.form={};
           /*axios.get('/logout')
           .then(()=>{
             localStorage.removeItem('user');
@@ -312,7 +300,7 @@
 			closeUsermsg(){	// 关闭用户信息模态框
 				this.usermsg.visible=false;
 			},
-			toLogin(){	// 登录校验
+			toLogin(){			// 登录校验
 				this.$refs.loginDialog.validate((valid)=>{
 					if(valid){
 						if(this.loginForm.form.username==''||this.loginForm.form.password==''){
@@ -321,7 +309,7 @@
 							// 此处进行验证
 							axios.get('/user/findUser?username='+this.loginForm.form.username)
 							.then(({data:results})=>{
-								console.log(results)
+								// console.log(results)
 								if(results.length==0){
 									this.$message.warning('请输入正确的用户名或密码')
 								}else if(results[0].username!==this.loginForm.form.username || results[0].password!==this.loginForm.form.password){
@@ -331,7 +319,6 @@
 									this.loginForm.visible=false;	// 关闭login模态框
 									this.$message.success('登录成功');
 									this.usermsg.form=results[0]
-									this.modifymsg.form=results[0]
 								}
 								
 							})
@@ -339,8 +326,82 @@
 					}
 				})
 			},
-			toModifyMsg(){	// 修改信息模态框
+			toModifyMsg(){	// 打开修改信息模态框
 				this.modifymsg.visible=true;
+				let modify=_.clone(this.usermsg.form)
+				this.modifymsg.form=modify;
+			},
+			closeModify(){	// 取消修改
+				this.modifymsg.visible=false;
+				this.$refs.userMsgForm.resetFields();
+			},
+			updateUser(){		// 提交用户信息
+				this.$refs.userMsgForm.validate((valid) => {
+          if (valid) {
+          	// console.log(this.modifymsg.form)
+          	let obj={
+          		username:this.modifymsg.form.username,
+          		password:this.modifymsg.form.password,
+          		nickname:this.modifymsg.form.nickname,
+          		address:this.modifymsg.form.address,
+          		telephone:this.modifymsg.form.telephone,
+          	}
+          	// console.log(obj)
+            axios.post('/user/updateUser',obj)
+						.then(()=>{
+							this.$message.success('修改成功')
+							axios.get('/user/findUser?username='+obj.username)
+							.then(({data:results})=>{
+								this.$message.success('登录成功');
+								// console.log(results[0])
+								this.usermsg.form=results[0]
+							})
+
+							this.modifymsg.visible=false;
+							this.usermsg.visible=false;
+							this.$refs.userMsgForm.resetFields();
+						})
+						.catch(()=>{
+							this.$message.error('修改失败');
+						})
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
+        });
+			},
+			toOrder(){
+				if(this.usermsg.form.username==undefined||this.usermsg.form.username==''){
+					this.$message({
+						message:'请先登录',
+						type:'warning'
+					});
+				}else{
+					this.$router.push({
+						path:'/order',
+						query:{
+							username:this.usermsg.form.username
+						}
+					})
+				}
+			},
+			toShoppingcart(){
+				if(this.usermsg.form.username==undefined){
+					this.$message({
+						message:'请先登录',
+						type:'warning'
+					});
+				}else{
+					this.$router.push({
+						path:'/shoppingcart',
+						query:{
+							username:this.usermsg.form.username
+						}
+					})
+				}
+			},
+			search(){				//关键字搜索
+				this.$router.push('/plate/overview?key='+this.input)
 			}
 		}
 	}

@@ -8,41 +8,39 @@
 	          <div class="platenav-block-variety">
 	            <div class="title">鲜花品种</div>
 	            <ul>
-	              <li><router-link to='/plate/overview'>玫瑰</router-link></li>
-	              <li><router-link to='/plate/overview'>百合</router-link></li>
-	              <li><router-link to='/plate/overview'>紫罗兰</router-link></li>
-	              <li><router-link to='/plate/overview'>康乃馨</router-link></li>
-	              <li><router-link to='/plate/overview'>郁金香</router-link></li>
-	            </ul>
+                <li><router-link to='/plate/overview?key=玫瑰'>玫瑰</router-link></li>
+                <li><router-link to='/plate/overview?key=百合'>百合</router-link></li>
+                <li><router-link to='/plate/overview?key=紫罗兰'>紫罗兰</router-link></li>
+                <li><router-link to='/plate/overview?key=向日葵'>向日葵</router-link></li>
+                <li><router-link to='/plate/overview?key=康乃馨'>康乃馨</router-link></li>
+                <li><router-link to='/plate/overview?key=郁金香'>郁金香</router-link></li>
+                <li><router-link to='/plate/overview?key=马蹄莲'>马蹄莲</router-link></li>
+              </ul>
 	          </div>
 	          <div class="platenav-block-purpose">
 	            <div class="title">鲜花用途</div>
 	            <ul>
-	              <li><router-link to='/plate/overview'>爱情鲜花</router-link></li>
-	              <li><router-link to='/plate/overview'>探病鲜花</router-link></li>
-	              <li><router-link to='/plate/overview'>友情鲜花</router-link></li>
-	              <li><router-link to='/plate/overview'>祝贺鲜花</router-link></li>
-	              <li><router-link to='/plate/overview'>婚庆鲜花</router-link></li>
-	              <li><router-link to='/plate/overview'>商务鲜花</router-link></li>
-	            </ul>
+                <li><router-link to='/plate/overview?type=3'>爱情鲜花</router-link></li>
+                <li><router-link to='/plate/overview?type=4'>送长辈鲜花</router-link></li>
+                <li><router-link to='/plate/overview?key=永恒'>婚庆鲜花</router-link></li>
+                <li><router-link to='/plate/overview?key=海洋之心'>商务鲜花</router-link></li>
+              </ul>
 	          </div>
 	          <div class="platenav-block-type">
 	            <div class="title">鲜花类别</div>
 	            <ul>
-	              <li><router-link to='/plate/overview'>开业花篮</router-link></li>
-	              <li><router-link to='/plate/overview'>永生花</router-link></li>
-	              <li><router-link to='/plate/overview'>花束</router-link></li>
-	              <li><router-link to='/plate/overview'>香皂花</router-link></li>
-	              <li><router-link to='/plate/overview'>办公室盆栽</router-link></li>
-	            </ul>
+                <li><router-link to='/plate/overview?key=开业'>开业花篮</router-link></li>
+                <li><router-link to='/plate/overview?type=5'>永生花</router-link></li>
+                <li><router-link to='/plate/overview?type=6'>办公室盆栽</router-link></li>
+              </ul>
 	          </div>
 	      	</div>
         </div>
-        <router-link to='/plate/overview'>鲜花</router-link>
-        <router-link to='/plate/overview'>永生花</router-link>
-        <router-link to='/plate/overview'>玫瑰花</router-link>
-        <router-link to='/plate/overview'>绿植盆栽</router-link>
-        <router-link to='/plate/overview'>七夕情人节鲜花</router-link>
+        <router-link to='/plate/overview?key=鲜花'>鲜花</router-link>
+        <router-link to='/plate/overview?type=5'>永生花</router-link>
+        <router-link to='/plate/overview?key=玫瑰'>玫瑰花</router-link>
+        <router-link to='/plate/overview?type=6'>绿植盆栽</router-link>
+        <router-link to='/plate/overview?type=3'>七夕情人节鲜花</router-link>
       </div>
     </div>
     <router-view></router-view>
@@ -78,7 +76,7 @@
     color: #fff;
   }
   .plate-nav-wrapper > .platenav-title{
-    width: 250px;
+    width: 280px;
     color: #fff;
     font-size: 17px;
     background-color: #f76372;
@@ -101,7 +99,7 @@
     background-color: rgba(247,99,114,1);
   }
   .platenav-title > .platenav-block {
-  	width: 250px;
+  	width: 280px;
     height: 329px;
     background-color: #fff;
     /* border-bottom: 2px solid #f76372; */
@@ -121,8 +119,8 @@
     text-align: center;
   }
   .platenav-block > * > ul {
-    width: 200px;
-    margin: 8px auto;
+    width: 230px;
+    margin: 15px auto;
   }
   .platenav-block > * > ul > * {
     display: inline-block;
@@ -134,21 +132,21 @@
     color: #f76372;
   }
   .platenav-block .platenav-block-variety a {
-    margin-right: 20px;
+    margin-right: 28px;
   }
   .platenav-block-variety .title {
     padding-top: 8px;
   }
   .platenav-block-variety ul,
   .platenav-block-purpose ul {
-    padding-bottom: 1em;
+    padding-bottom: 1.5em;
     border-bottom: 1px solid rgba(247,99,114,0.3);
   }
   .platenav-block .platenav-block-purpose a {
     margin-right: 25px;
   }
   .platenav-block .platenav-block-type a {
-    margin-right: 35px;
+    margin-right: 31px;
   }
   .platenav-block-type ul > li:nth-child(4) a {
     margin-right: 49px;
@@ -157,12 +155,15 @@
     margin-right: 32px;
   }
   .platenav-block-variety ul > li:nth-child(4) a,
-  .platenav-block-variety ul > li:nth-child(8) a,
   .platenav-block-purpose ul > li:nth-child(3) a,
   .platenav-block-purpose ul > li:nth-child(6) a,
   .platenav-block-type ul > li:nth-child(3) a,
   .platenav-block-type ul > li:nth-child(6) a {
     margin: 0;
+  }
+  .platenav-block-variety ul > li:nth-child(5) a,
+  .platenav-block-variety ul > li:nth-child(6) a {
+    margin-right: 15px;
   }
 
 
