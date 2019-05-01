@@ -242,21 +242,21 @@
       return {
         items:[{
           id:'00',
-          src:'../static/carousel-1.jpg',
+          src:'static/carousel-1.jpg',
           href:'/plate/overview?type=3'
         },{
           id:'01',
-          src:'../static/carousel-2.jpg',
+          src:'static/carousel-2.jpg',
           href:'/plate/overview?type=5'
         },{
           id:'02',
-          src:'../static/carousel-3.jpg',
+          src:'static/carousel-3.jpg',
           href:'/plate/overview?type=6'
         }],
 
         hotmsg:[{
           id:'500',
-          src:'../static/immortal-1.jpg',
+          src:'static/immortal-1.jpg',
           hotmsghead:'特惠',
           title:' 桃心玻璃罩 永生花 礼盒',
           pricel:'176',
@@ -269,7 +269,7 @@
           // packing:'内层白色雾面纸，外层牛皮纸,咖啡色花结'
         },{
           id:'302',
-          src:'../static/love-3.jpg',
+          src:'static/love-3.jpg',
           hotmsghead:'限时购',
           title:'致美丽的你 红玫瑰',
           pricel:'138',
@@ -282,7 +282,7 @@
           // packing:'内层白色雾面纸，外层牛皮纸,咖啡色花结',
         },{
           id:'405',
-          src:'../static/thanks-6.jpg',
+          src:'static/thanks-6.jpg',
           hotmsghead:'满折',
           title:'温馨问候',
           pricel:'285',
@@ -292,7 +292,7 @@
           // src2:'/static/thanks-6/405-2.jpg'
         },{
           id:'501',
-          src:'../static/immortal-2.jpg',
+          src:'static/immortal-2.jpg',
           hotmsghead:'满减',
           title:'Be My Love',
           pricel:'398',
@@ -302,7 +302,7 @@
           // src2:'/static/immortal-2/501-2.jpg'
         },{
           id:'400',
-          src:'../static/thanks-1.jpg',
+          src:'static/thanks-1.jpg',
           hotmsghead:'满减',
           title:'母爱 康乃馨',
           pricel:'175',
@@ -314,35 +314,35 @@
 
         timelimit:[{
           id:'20',
-          src:'../static/time-1.jpg',
+          src:'static/time-1.jpg',
           timelimithead:'限时购',
           title:'绿野仙踪 永生花 鲜花礼盒',
           pricel:'469',
           priceh:'499',
         },{
           id:'506',
-          src:'../static/immortal-7.jpg',
+          src:'static/immortal-7.jpg',
           timelimithead:'限时购',
           title:'永生花 玻璃罩 礼盒',
           pricel:'338',
           priceh:'399',
         },{
           id:'308',
-          src:'../static/love-9.jpg',
+          src:'static/love-9.jpg',
           timelimithead:'满折',
           title:'恋恋情深 香槟玫瑰',
           pricel:'199',
           priceh:'255',
         },{
           id:'401',
-          src:'../static/thanks-2.jpg',
+          src:'static/thanks-2.jpg',
           timelimithead:'满减',
           title:'天使之祈',
           pricel:'198',
           priceh:'252',
         },{
           id:'309',
-          src:'../static/love-10.jpg',
+          src:'static/love-10.jpg',
           timelimithead:'满减',
           title:'甜美公主',
           pricel:'376',
@@ -351,49 +351,49 @@
 
         lovemsg:[{
           id:'300',
-          src:'../static/love-1.jpg',
+          src:'static/love-1.jpg',
           title:'一心一意',
           pricel:'138',
           priceh:'189',
         },{
           id:'301',
-          src:'../static/love-2.jpg',
+          src:'static/love-2.jpg',
           title:'爱你如初',
           pricel:'529',
           priceh:'636',
         },{
           id:'302',
-          src:'../static/love-3.jpg',
+          src:'static/love-3.jpg',
           title:'致美丽的你',
           pricel:'138',
           priceh:'191',
         },{
           id:'303',
-          src:'../static/love-4.jpg',
+          src:'static/love-4.jpg',
           title:'青青子衿',
           pricel:'280',
           priceh:'359',
         },{
           id:'304',
-          src:'../static/love-5.jpg',
+          src:'static/love-5.jpg',
           title:'月光女神',
           pricel:'232',
           priceh:'305',
         },{
           id:'305',
-          src:'../static/love-6.jpg',
+          src:'static/love-6.jpg',
           title:'真爱如初',
           pricel:'202',
           priceh:'265',
         },{
           id:'306',
-          src:'../static/love-7.jpg',
+          src:'static/love-7.jpg',
           title:'爱的小确幸',
           pricel:'309',
           priceh:'395',
         },{
           id:'307',
-          src:'../static/love-8.jpg',
+          src:'static/love-8.jpg',
           title:'致青春',
           pricel:'229',
           priceh:'295',
@@ -401,49 +401,49 @@
 
         thanksmsg:[{
           id:'400',
-          src:'../static/thanks-1.jpg',
+          src:'static/thanks-1.jpg',
           title:'母爱',
           pricel:'175',
           priceh:'228',
         },{
           id:'401',
-          src:'../static/thanks-2.jpg',
+          src:'static/thanks-2.jpg',
           title:'天使之祈',
           pricel:'198',
           priceh:'252',
         },{
           id:'402',
-          src:'../static/thanks-3.jpg',
+          src:'static/thanks-3.jpg',
           title:'向日葵之歌',
           pricel:'189',
           priceh:'242',
         },{
           id:'403',
-          src:'../static/thanks-4.jpg',
+          src:'static/thanks-4.jpg',
           title:'爱的思念',
           pricel:'196',
           priceh:'251',
         },{
           id:'404',
-          src:'../static/thanks-5.jpg',
+          src:'static/thanks-5.jpg',
           title:'留住好时光',
           pricel:'238',
           priceh:'306',
         },{
           id:'405',
-          src:'../static/thanks-6.jpg',
+          src:'static/thanks-6.jpg',
           title:'温馨问候',
           pricel:'285',
           priceh:'389',
         },{
           id:'406',
-          src:'../static/thanks-7.jpg',
+          src:'static/thanks-7.jpg',
           title:'漾恬假期',
           pricel:'238',
           priceh:'305',
         },{
           id:'407',
-          src:'../static/thanks-8.jpg',
+          src:'static/thanks-8.jpg',
           title:'妈妈的爱',
           pricel:'159',
           priceh:'202',
@@ -451,49 +451,49 @@
 
         immortalmsg:[{
           id:'500',
-          src:'../static/immortal-1.jpg',
+          src:'static/immortal-1.jpg',
           title:'桃心玻璃罩 永生花 礼盒',
           pricel:'176',
           priceh:'235',
         },{
           id:'501',
-          src:'../static/immortal-2.jpg',
+          src:'static/immortal-2.jpg',
           title:'Be My Love',
           pricel:'398',
           priceh:'598',
         },{
           id:'502',
-          src:'../static/immortal-3.jpg',
+          src:'static/immortal-3.jpg',
           title:'看得到的美好',
           pricel:'399',
           priceh:'499',
         },{
           id:'503',
-          src:'../static/immortal-4.jpg',
+          src:'static/immortal-4.jpg',
           title:'一生一世',
           pricel:'198',
           priceh:'259',
         },{
           id:'504',
-          src:'../static/immortal-5.jpg',
+          src:'static/immortal-5.jpg',
           title:'一路有你',
           pricel:'338',
           priceh:'569',
         },{
           id:'505',
-          src:'../static/immortal-6.jpg',
+          src:'static/immortal-6.jpg',
           title:'海洋之恋',
           pricel:'999',
           priceh:'1399',
         },{
           id:'506',
-          src:'../static/immortal-7.jpg',
+          src:'static/immortal-7.jpg',
           title:'永生花 玻璃罩 礼盒',
           pricel:'338',
           priceh:'399',
         },{
           id:'507',
-          src:'../static/immortal-8.jpg',
+          src:'static/immortal-8.jpg',
           title:'十二星座红色永生玫瑰',
           pricel:'268',
           priceh:'328',
